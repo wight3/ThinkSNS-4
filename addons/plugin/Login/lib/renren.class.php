@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Chongqing');
 class renren{
 	private function getCallback($site='', $type='bind', $callbackurl=''){
 		if(!$callbackurl){	

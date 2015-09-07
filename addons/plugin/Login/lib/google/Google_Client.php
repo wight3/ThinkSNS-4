@@ -25,9 +25,6 @@ if (! function_exists('json_decode')) {
 if (! function_exists('http_build_query')) {
   throw new Exception('Google PHP API Client requires http_build_query()');
 }
-if (! ini_get('date.timezone') && function_exists('date_default_timezone_set')) {
-  date_default_timezone_set('UTC');
-}
 // hack around with the include paths a bit so the library 'just works'
 set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
 require_once "config.php";

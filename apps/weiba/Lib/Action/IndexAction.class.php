@@ -711,6 +711,10 @@ class IndexAction extends Action {
 				$post_detail['attachInfo'][$ak] = $_attach;
 			}
 		}
+
+		/* # 解析表情 */
+		$post_detail['content'] = preg_replace_callback('/\[.+?\]/is', '_parse_expression', $post_detail['content']);
+
 		$post_detail['content'] = html_entity_decode($post_detail['content'], ENT_QUOTES, 'UTF-8');
 		$this->assign('post_detail',$post_detail);
 		//dump($post_detail);

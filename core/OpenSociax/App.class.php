@@ -15,14 +15,9 @@ class App
         // 设定错误和异常处理
         set_error_handler(array('App','appError'));
         set_exception_handler(array('App','appException'));
-        // Session初始化
-        if(!session_id())
-            session_start();
-        // 时区检查
-        date_default_timezone_set('PRC');
-        // 模版检查
         
-        // 语言检查
+        // Session初始化
+        if(!session_id()) session_start();
 
         // 加载所有插件
         if(C('APP_PLUGIN_ON')) {

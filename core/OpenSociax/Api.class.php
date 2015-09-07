@@ -238,9 +238,6 @@ class Api {
         // 设定错误和异常处理
         set_error_handler(array('App','appError'));
         set_exception_handler(array('App','appException'));
-
-        // 时区检查
-        date_default_timezone_set('PRC');
         
         // Session初始化
         if(!session_id())

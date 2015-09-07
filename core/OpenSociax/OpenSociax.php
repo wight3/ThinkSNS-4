@@ -90,7 +90,10 @@ tsload(CORE_LIB_PATH.'/functions.inc.php');
 
 //如果有UC的配置载入配置
 if(file_exists(CONF_PATH.'/uc_config.inc.php'))
-tsload(CONF_PATH.'/uc_config.inc.php');
+{
+	tsload(CONF_PATH.'/uc_config.inc.php');
+}
+
 //如果未定义.
 tsdefine('UC_SYNC', 0);
 //tsload(CORE_LIB_PATH.'/extend.inc.php');
@@ -99,10 +102,13 @@ tsdefine('UC_SYNC', 0);
 /**
  * 安全防护功能
  */
-if (!in_array('admin', array(
-	strtolower(APP_NAME),
-	strtolower(MODULE_NAME)
-))) {
+if (
+	strtolower(APP_NAME) &
+	strtolower(MODULE_NAME) 
+	!= 
+	'admin' |
+	'upload'
+) {
 	tsload(ADDON_PATH . '/library/waf.php');
 }
 

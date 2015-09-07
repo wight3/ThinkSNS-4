@@ -81,6 +81,7 @@ class ApplicationAction extends AdministratorAction
 	public function addSlide()
 	{
 		$this->pageKeyList = array('title', 'image', 'type', 'data');
+		$this->notEmpty    = array('title', 'image', 'type');
 		array_push($this->pageTab, array(
 			'title'   => '轮播列表',
 			'tabHash' => 'index',
@@ -122,6 +123,8 @@ class ApplicationAction extends AdministratorAction
 			$this->error('标题不能为空');
 		} elseif (!$image) {
 			$this->error('必须上传轮播图片');
+		} elseif (in_array($type, array('url', 'weiba', 'post', 'weibo', 'topic', 'channel', 'user') and !$data)) {
+			$this->error('您设置的跳转类型必须设置类型参数');
 		}
 
 		$data = array(

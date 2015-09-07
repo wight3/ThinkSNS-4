@@ -1,7 +1,13 @@
 <?php
 //exit;
 define('SITE_PATH',dirname(__FILE__));
-date_default_timezone_set('PRC');
+
+/* # 设置时区 */
+if(!ini_get('date.timezone') and function_exists('date_default_timezone_set'))
+{
+	date_default_timezone_set('Asia/Shanghai');
+}
+
 error_reporting(0);
 //session 设置
 ini_set('session.cookie_httponly', 1);

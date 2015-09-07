@@ -8,7 +8,12 @@
 if (!defined('SITE_PATH')) exit();
 
 ini_set('magic_quotes_runtime', 0);
-date_default_timezone_set('UTC');
+
+/* # 设置时区 */
+if(!ini_get('date.timezone') and function_exists('date_default_timezone_set'))
+{
+	date_default_timezone_set('Asia/Shanghai');
+}
 
 $time_include_start = microtime(TRUE);
 $mem_include_start = memory_get_usage();

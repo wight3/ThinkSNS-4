@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Chongqing');
 class qzone{
 	private function getCallback($type='', $callbackurl=''){
 		if(!$callbackurl)

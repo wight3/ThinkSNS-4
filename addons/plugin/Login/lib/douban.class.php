@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Chongqing');
 require_once 'douban/OAuth.php';
 require_once 'douban/doubanOAuth.php';
 class douban{
