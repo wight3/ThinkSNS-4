@@ -31,16 +31,20 @@ $installdbname = 'thinksns_4_0';
 $thinksns_config_file = 'config.inc.php';
 $_SESSION['thinksns_install'] = $timestamp;
 
-// 判断是否安装过
+/* # 设置响应头 */
 header('Content-Type: text/html; charset=utf-8');
-if(file_exists('install.lock'))
-{
-	exit($i_message['install_lock']);
+
+/* # 判断是否存在安装锁 */
+if (file_exists(THINKSNS_ROOT . '/data/install.lock')) {
+	echo $i_message['install_lock'];
+	exit;
+
+/* # 判断安装sql文件是否可读 */
+} elseif (!is_readable($installfile)) {
+	echo $i_message['install_dbFile_error'];
+	exit;
 }
-if(!is_readable($installfile))
-{
-	exit($i_message['install_dbFile_error']);
-}
+
 $quit = false;
 $msg = $alert = $link = $sql = $allownext = '';
 
@@ -116,10 +120,10 @@ foreach ($dirarray as $key => $dir)
 
 <h5><?php echo $i_message['php_version'];?>&nbsp;&nbsp;<span class="p"><?php
 echo PHP_VERSION;
-if (PHP_VERSION < '5.2.0')
+if (version_compare(PHP_VERSION, '5.3.12', '<'))
 {
 	result(0, 1);
-	$quit = TRUE;
+	$quit = true;
 }
 else
 {
@@ -480,30 +484,6 @@ if($result_1 && file_exists(THINKSNS_ROOT.'/config/'.$thinksns_config_file)){
 <?php
 }
 }
-/*
-$dir   =  THINKSNS_ROOT.'/data/iswaf';
-// 目录不存在则创建
-if(!is_dir($dir))  mkdir($dir,0777,true);
-
-$iswafKey = iswaf_create_key($site_url);
-$iswafConfig = array(
-'iswaf_database' => $dir.'/',
-'iswaf_connenct_key' => $iswafKey,
-'iswaf_status' => 1,
-'defences'=>array(
-				'callback_xss'=>'On',
-				'upload'=>'On',
-				'inject'=>'On',	
-				'filemode'=>'On',
-				'webshell'=>'On',
-				'server_args'=>'On',
-				'webserver'=>'On',
-				'hotfixs'=>'On',
-				)
-);
-file_put_contents($dir.'/config.php',"<?php\nreturn ".var_export($iswafConfig,true).";\n?>");
-$res = file_get_contents('http://www.fanghuyun.com/api.php?do=tsreg&IDKey='.$iswafKey.'&url='.$site_url);
-*/
 ?>
 	</div>
 	<div class="center">
@@ -527,7 +507,7 @@ elseif ($v == '5')
 	{
 		mysql_connect($db_config['db_host'], $db_config['db_username'], $db_config['db_password']);
 		$sqlv = mysql_get_server_info();
-		if($sqlv < '5.0')
+		if(version_compare($sqlv, '5.0.0', '<'))
 		{
 			$msg .= '<p>错误:'.$i_message['mysql_version_402'].'</p>';
 			$quit = TRUE;
@@ -659,8 +639,6 @@ elseif ($v == '6')
 	//添加管理员
 	$siteFounder	=	$_SESSION['default_manager_account'];
 
-	// $sql1 = "INSERT INTO `{$db_config['db_prefix']}user` (uid,login,password,login_salt,uname,email,sex,location,is_audit,is_active,is_init,ctime,identity,api_key,domain,province,city,area,reg_ip,lang,timezone,is_del,first_letter,intro,last_login_time,last_feed_id,last_post_time,search_key,invite_code,feed_email_time,send_email_time,openid) VALUES (".$admin_id.", '".$siteFounder['email']."', '".$siteFounder['password']."', '11111', '管理员', '".$siteFounder['email']."', '1', '北京市 北京市 海淀区', '1', '1', '1', ".time().", '1', '', '', '110000', '110100', '110108', '127.0.0.1', 'zh-cn', 'PRC', '0', 'G', '', 0, 0, 0, '管理员 guanliyuan', '', '', '', '');";
-
 	$sql1 = 'INSERT INTO `%s` (`uid`, `password`, `login_salt`, `uname`, `email`, `phone`, `sex`, `location`, `is_audit`, `is_active`, `is_init`, `ctime`, `identity`, `api_key`, `domain`, `province`, `city`, `area`, `reg_ip`, `lang`, `timezone`, `is_del`, `first_letter`, `intro`, `last_login_time`, `last_feed_id`, `last_post_time`, `search_key`, `invite_code`, `feed_email_time`, `send_email_time`, `openid`, `input_city`, `is_fixed`) VALUES (%d, "%s", "11111", "管理员", "%s", NULL, 1, "北京 北京市 海淀区", 1, 1, 1, "%s", 1, NULL, "", 1, 2, 10, "127.0.0.1", "zh-cn", "PRC", 0, "G", "", "", 0, 0, "管理员 guanliyuan", NULL, 0, 0, NULL, NULL, 1);';
 	$sql1 = sprintf($sql1, $db_config['db_prefix'] . 'user', $admin_id, $siteFounder['password'], $siteFounder['email'], time());
 	// echo $sql1;
@@ -679,17 +657,9 @@ elseif ($v == '6')
 		$quit	=	true;
 	}
 
-	//将管理员设置为默认关注的用户
-	// $sql_auto_friend = "REPLACE INTO `{$db_config['db_prefix']}system_data` (`list`,`key`,`value`) VALUES ('register', 'register_auto_friend', '".serialize($admin_id)."');";
-	// if( mysql_query($sql_auto_friend) ){
-
-	// } else {
-	// 	$quit	=	true;
-	// }
-
 	if(!$quit){
-		//锁定安装
-		fopen('install.lock', 'w');
+		/* # 写入锁文件 */
+		file_put_contents(THINKSNS_ROOT . '/data/install.lock', 'ThinkSNS lock file');
 	}else{
 		echo '请重新安装';
 	}

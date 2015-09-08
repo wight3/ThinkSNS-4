@@ -262,8 +262,6 @@ class PassportModel {
 	 */
 	public function loginLocalWithoutPassword($login, $is_remember_me = false) {
 		$login = addslashes($login);
-
-		import(ADDON_PATH . '/utility/MedzValidator.php');
 		
 		if(empty($login)) {
 			$this->error = L('PUBLIC_ACCOUNT_NOTEMPTY');			// 帐号不能为空

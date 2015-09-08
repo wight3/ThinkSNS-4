@@ -4,11 +4,11 @@ if (!defined('THINKSNS_INSTALL'))
 	exit ('Access Denied');
 }
 
-$i_message['install_lock'] = '您已安装过ThinkSNS ' . $_TSVERSION . '，如果需要重新安装，请先删除install目录下的install.lock文件';
+$i_message['install_lock'] = '您已安装过ThinkSNS ' . $_TSVERSION . '，如果需要重新安装，请先删除data目录下的install.lock文件';
 $i_message['install_title'] = 'ThinkSNS ' . $_TSVERSION . ' 安装向导';
 $i_message['install_wizard'] = '安装向导';
 $i_message['install_warning'] = '<strong>注意 </strong>这个安装程序仅仅用在你首次安装ThinkSNS。如果你已经在使用 ThinkSNS 或者要更新到一个新版本，请不要运行这个安装程序。';
-$i_message['install_intro'] = '<h4>安装须知</h4><p>一、运行环境需求：PHP(5.2.0+)+MYSQL(4.1+)</p><p>二、安装步骤：<br /><br />1、使用ftp工具以二进制模式，将该软件包里的 thinksns 目录及其文件上传到您的空间，假设上传后目录仍旧为 thinksns。<br /><br />2、如果您使用的是Linux 或 Freebsd 服务器，先确认以下目录或文件属性为 (777) 可写模式。<br /><br />目录: data<br />目录: _runtime<br />目录: install<br />目录: config<br />3、运行 http://yourwebsite/thinksns/install/install.php 安装程序，填入安装相关信息与资料，完成安装！<br />4、运行 http://yourwebsite/thinksns/cleancache.php 清除系统缓存文件！<br />5、运行 http://yourwebsite/thinksns/index.php 开始体验ThinkSNS！</p>';
+$i_message['install_intro'] = '<h4>安装须知</h4><p>一、运行环境需求：PHP(5.3.12+)+MYSQL(5.5.12+)</p><p>二、安装步骤：<br /><br />1、使用ftp工具以二进制模式，将该软件包里的 thinksns 目录及其文件上传到您的空间，假设上传后目录仍旧为 thinksns。<br /><br />2、如果您使用的是Linux 或 Freebsd 服务器，先确认以下目录或文件属性为 (777) 可写模式。<br /><br />目录: data<br />目录: _runtime<br />目录: install<br />目录: config<br />3、运行 http://yourwebsite/thinksns/install/install.php 安装程序，填入安装相关信息与资料，完成安装！<br />4、运行 http://yourwebsite/thinksns/cleancache.php 清除系统缓存文件！<br />5、运行 http://yourwebsite/thinksns/index.php 开始体验ThinkSNS！</p>';
 $i_message['install_start'] = '开始安装ThinkSNS';
 $i_message['install_license_title'] = '安装许可协议';
 $i_message['install_license'] = '版权所有 (C) 2008-'.date('Y').'，ThinkSNS.com 保留所有权利。
@@ -107,7 +107,7 @@ $i_message['database_errno_1044'] = '错误:无法创建新的数据库，请检
 $i_message['database_errno_1064'] = '错误:SQL执行错误，请检查数据库名称填写是否正确';
 $i_message['database_errno'] = '错误:程序在执行数据库操作时发生了一个错误，安装过程无法继续进行。';
 $i_message['configure_read_failed'] = '数据库配置失败';
-$i_message['mysql_version_402'] = '错误:您的 MYSQL 版本低于 5.0，安装无法继续进行！';
+$i_message['mysql_version_402'] = '错误:您的 MYSQL 版本低于 5.0.0，安装无法继续进行！';
 $i_message['thinksns_rebuild'] = '数据库中已经安装过 ThinkSNS，继续安装会清空原有数据！';
 $i_message['mysql_import_data'] = '点击下一步开始导入数据';
 $i_message['import_processing'] = '导入数据库';
@@ -124,5 +124,5 @@ $i_message['auto_increment'] = '用户的起始ID';
 $i_message['set_auto_increment_success'] = '用户起始ID设置成功';
 $i_message['set_auto_increment_error'] = '用户起始ID设置失败';
 $i_message['install_success'] = '安装成功';
-$i_message['install_success_intro'] = '<p>安装程序执行完毕，请尽快删除整个 install 目录，以免被他人恶意利用。如要重新安装，请删除本目录的 install.lock 文件！</p><p><a href="../index.php">请点击这里开始体验ThinkSNS吧！</a></p>';
+$i_message['install_success_intro'] = '<p>安装程序执行完毕，请尽快删除整个 install 目录，以免被他人恶意利用。如要重新安装，请删除data目录的 install.lock 文件！</p><p><a href="../index.php">请点击这里开始体验ThinkSNS吧！</a></p>';
 $i_message['install_dbFile_error'] = '数据库文件无法读取，请检查/install/ThinkSNS.sql是否存在或者拥有读取权限。';
