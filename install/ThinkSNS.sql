@@ -3576,9 +3576,6 @@ TRUNCATE TABLE `ts_attach`;
 --
 -- 转存表中的数据 `ts_attach`
 --
---
--- 转存表中的数据 `ts_attach`
---
 
 INSERT INTO `ts_attach` (`attach_id`, `app_name`, `table`, `row_id`, `attach_type`, `uid`, `ctime`, `name`, `type`, `size`, `extension`, `hash`, `private`, `is_del`, `save_path`, `save_name`, `save_domain`, `from`, `width`, `height`) VALUES(36, '', '', 0, 'feed_image', 32166, 1434353623, '找BUG_00.png', 'image/png', '17503', 'png', '05c59c4570f54702230ea6b05fede3ad', 0, 0, '2015/0615/15/', '557e7fd7bab9f.png', 0, 0, 100, 100);
 INSERT INTO `ts_attach` (`attach_id`, `app_name`, `table`, `row_id`, `attach_type`, `uid`, `ctime`, `name`, `type`, `size`, `extension`, `hash`, `private`, `is_del`, `save_path`, `save_name`, `save_domain`, `from`, `width`, `height`) VALUES(35, '', '', 0, 'feed_image', 32166, 1434353662, 'ThinkSNS 荣誉志愿者_00.png', 'image/png', '15715', 'png', 'f5e9f4865db1da114c915343de43b640', 0, 0, '2015/0615/15/', '557e7ffe86ffd.png', 0, 0, 100, 100);

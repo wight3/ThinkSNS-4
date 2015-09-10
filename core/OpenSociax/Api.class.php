@@ -281,6 +281,7 @@ class Api {
             //测试输出
             dump($data);
         }else{
+            header('Content-Type:application/json');
             echo json_encode($data);
         }
 
