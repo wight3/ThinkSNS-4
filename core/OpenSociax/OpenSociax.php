@@ -98,20 +98,6 @@ if(file_exists(CONF_PATH.'/uc_config.inc.php'))
 tsdefine('UC_SYNC', 0);
 //tsload(CORE_LIB_PATH.'/extend.inc.php');
 
-
-/**
- * 安全防护功能
- */
-if (
-	strtolower(APP_NAME) &
-	strtolower(MODULE_NAME) 
-	!= 
-	'admin' |
-	'upload'
-) {
-	tsload(ADDON_PATH . '/library/waf.php');
-}
-
 /*  应用配置  */
 //载入应用配置
 tsdefine('APP_PATH'			, APPS_PATH.'/'.TRUE_APPNAME);

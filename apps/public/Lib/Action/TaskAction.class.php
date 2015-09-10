@@ -106,7 +106,7 @@ class TaskAction extends Action{
 			model('Task')->getReward( $reward->exp , $reward->score , $reward->medal->id , $GLOBALS['ts']['mid']);
 			
 			$reward->exp && $exp = '经验+'.$reward->exp;
-			$reward->score && $score = ' 财富+'.$reward->score;
+			$reward->score && $score = ' 积分+'.$reward->score;
 			$reward->medal->name && $medalname = ' 获得一枚’'.$reward->medal->name.'‘勋章<img src="'.getImageUrl ( $reward->medal->src ).'" class="ico-badge" width="100" height="100"/>';
 			
 			$content = '已完成'.$task['task_name'].$exp.$score.$medalname;
@@ -138,7 +138,7 @@ class TaskAction extends Action{
 			$reward = json_decode( $jsreward );
 			
 			$reward->exp && $exp = '经验+'.$reward->exp;
-			$reward->score && $score = ' 财富+'.$reward->score;
+			$reward->score && $score = ' 积分+'.$reward->score;
 			
 			$reward->medal->name && $medalname = ' 获得一枚’'.$reward->medal->name.'‘勋章<img src="'.getImageUrl ( $reward->medal->src ).'" class="ico-badge" width="100" height="100"/>';
 			//获得奖励
@@ -184,7 +184,7 @@ class TaskAction extends Action{
 				$tasklevel = D('task_user')->where('id='.$id)->getField('task_level');
 				$tid = D('task_user')->where('id='.$id)->getField('tid');
 				$reward = json_decode( model( 'Task' )->where('id='.$tid)->getField('reward') );
-				$info = '经验+'.$reward->exp.' 财富+'.$reward->score;
+				$info = '经验+'.$reward->exp.' 积分+'.$reward->score;
 				$reward->medal->name && $info.=' 获得勋章‘'.$reward->medal->name.'’';
 				//获得奖励
 				model('Task')->getReward( $reward->exp , $reward->score , $reward->medal->id , $GLOBALS['ts']['mid']);

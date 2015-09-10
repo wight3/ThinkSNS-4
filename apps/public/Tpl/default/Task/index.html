@@ -73,7 +73,7 @@ function gonext(type,level){
 
                             <ul class="clearfix">
                                <li class="c1"><h4 class="strong">{$v.step_name} </h4><p>{$v.step_desc} </p></li>
-                               <li class="c2"><span>经验值<em>+<php>echo $v['reward']->exp;</php></em>点</span><span>财富值<em>+<php>echo $v['reward']->score;</php></em>点</span></li>
+                               <li class="c2"><span>经验值<em>+<php>echo $v['reward']->exp;</php></em>点</span><span>积分值<em>+<php>echo $v['reward']->score;</php></em>点</span></li>
                                <li class="c3"><span><php>if ( $v['reward']->medal->name ){</php><img src="<php>echo getImageUrl( $v['reward']->medal->src);</php>" width="50" height="50"/><php>echo $v['reward']->medal->name;}else{echo '<em></em>';}</php></span></li>
                                <li class="c4">
                                		<php>if($v['status']){</php>

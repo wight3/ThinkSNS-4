@@ -75,7 +75,7 @@ function postfeed(id){
                                <span class="f3">{$v['surplus']}</span>
                                <php>}</php>
                                </li>
-                               <li class="c2 c12"><span>经验值<em>+<php>echo $v['reward']->exp;</php></em>点</span><span>财富值<em>+<php>echo $v['reward']->score;</php></em>点</span></li>
+                               <li class="c2 c12"><span>经验值<em>+<php>echo $v['reward']->exp;</php></em>点</span><span>积分值<em>+<php>echo $v['reward']->score;</php></em>点</span></li>
                                <li class="c3 c13"><span><php>if ( $v['reward']->medal->name ){</php><img src="<php>echo getImageUrl($v['reward']->medal->src);</php>" width="50" height="50"/><php>echo $v['reward']->medal->name;}else{echo '';}</php></span></li>
                                <li class="c4 c14">
                                <php>if($v['status'] == 'ing'){</php>

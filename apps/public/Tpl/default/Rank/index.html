@@ -135,9 +135,9 @@ function rankpost(type){
       <php>}</php>
     </div>
     <div class="rank-box no-border">
-      <div class="rank-tit"> <span class="right"><i class="arrow-rank-l" id="scorelast" onclick="gorank(1,'score',this,{$score.ranknum})"></i><font id="scorenum">{$score.firstrank}</font>/{$score.ranknum}<i class="arrow-rank-r<php>if($score['ranknum']==1){</php>1<php>}</php>" id="scorenext" onclick="gorank(2,'score',this,{$score.ranknum})"></i></span>{$typename}财富排行榜 </div>
-      <div class="rank-num">您在{$typename}财富排行榜中排名第<em>{$score.userrank}</em>名</div>
-      <div class="rank-cate"><span class="right">财富值</span><span class="num">排名</span><span class="name">昵称</span></div>
+      <div class="rank-tit"> <span class="right"><i class="arrow-rank-l" id="scorelast" onclick="gorank(1,'score',this,{$score.ranknum})"></i><font id="scorenum">{$score.firstrank}</font>/{$score.ranknum}<i class="arrow-rank-r<php>if($score['ranknum']==1){</php>1<php>}</php>" id="scorenext" onclick="gorank(2,'score',this,{$score.ranknum})"></i></span>{$typename}积分排行榜 </div>
+      <div class="rank-num">您在{$typename}积分排行榜中排名第<em>{$score.userrank}</em>名</div>
+      <div class="rank-cate"><span class="right">积分值</span><span class="num">排名</span><span class="name">昵称</span></div>
       <php>foreach ( $score['list'] as $scorek=>$scorev ){</php>
       <div rel="scorediv" 
         

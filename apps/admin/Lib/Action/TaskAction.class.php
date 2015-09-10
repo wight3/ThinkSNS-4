@@ -48,7 +48,7 @@ class TaskAction extends AdministratorAction{
 			$v['count'] = $iduser[$v['id']] ? $iduser[$v['id']] : 0;
 			$reward = json_decode( $v['reward'] );
 			$src = $reward->medal->src;
-			$v['reward'] = '经验+'.$reward->exp.' 财富+'.$reward->score;
+			$v['reward'] = '经验+'.$reward->exp.' 积分+'.$reward->score;
 			$src && $v['medal'] = '<img width="100px" height="100px" src="'.getImageUrl ( $src ).'" />';
 			$v['DOACTION'] = "<a href='".U('admin/Task/editTask',array('id'=>$v['id']))."' >编辑</a>";
 		}
@@ -73,7 +73,7 @@ class TaskAction extends AdministratorAction{
 			$v['count'] = $iduser[$v['id']];
 			$reward = json_decode( $v['reward'] );
 			$src = $reward->medal->src;
-			$v['reward'] = '经验+'.$reward->exp.' 财富+'.$reward->score;
+			$v['reward'] = '经验+'.$reward->exp.' 积分+'.$reward->score;
 			$src && $v['medal'] = '<img width="100px" height="100px" src="'.getImageUrl( $src ).'" />';
 			$condesc = '';
 			if ( $v['task_condition'] ){
@@ -150,7 +150,7 @@ class TaskAction extends AdministratorAction{
 			$v['count'] = $iduser[$v['id']] ? $iduser[$v['id']] : 0;
 			$reward = json_decode( $v['reward'] );
 			$src = $reward->medal->src;
-			$v['reward'] = '经验+'.$reward->exp.' 财富+'.$reward->score;
+			$v['reward'] = '经验+'.$reward->exp.' 积分+'.$reward->score;
 			$src && $v['medal'] = '<img width="100px" height="100px" src="'.getImageUrl( $src ).'" />';
 			$v['DOACTION'] = "<a href='".U('admin/Task/editTask',array('id'=>$v['id'],'type'=>2,'tabHash'=>'mainIndex'))."' >编辑</a>";
 		}
@@ -472,7 +472,7 @@ class TaskAction extends AdministratorAction{
 			$taskreward = D('task_reward')->where('task_type='.$v['task_type'].' and task_level='.$v['task_level'])->getField('reward');
 			$reward = json_decode( $taskreward );
 			$src = $reward->medal->src;
-			$v['reward'] = '经验+'.intval($reward->exp).' 财富+'.intval($reward->score);
+			$v['reward'] = '经验+'.intval($reward->exp).' 积分+'.intval($reward->score);
 			if ( $src ){
 				$v['medal'] = '<img width="100px" height="100px" src="'.getImageUrl( $src ).'" />';
 			}

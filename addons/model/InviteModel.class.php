@@ -248,7 +248,7 @@ class InviteModel extends Model
 			if($count == 0) {
 				$stauts = $this->applyInviteCode($uid, 'email');
 				if(!$stauts) {
-					$this->error = '财富值不足够，不能进行邀请';
+					$this->error = '积分值不足够，不能进行邀请';
 					return false;
 				}
 			}

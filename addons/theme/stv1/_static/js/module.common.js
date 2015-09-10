@@ -380,7 +380,7 @@ M.addEventFns({
 			return false;
 		}
 	},
-	ico_wallet:{//财富
+	ico_wallet:{//积分
 		mouseenter:function(){
 			this._model.style.display = 'block';
 		},

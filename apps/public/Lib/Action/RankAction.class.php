@@ -72,7 +72,7 @@ class RankAction extends Action{
 				$eu['val'] = $eu['experience'];
 			}
 			
-			//财富排行
+			//积分排行
 			$scoreuids = $creditUserDao->where($scoremap)->field('uid,`score`')->order('`score` desc,uid')->limit(100)->findAll();
 			$iscore = 0;
 			foreach ( $scoreuids as &$gu ){
@@ -322,7 +322,7 @@ class RankAction extends Action{
 		}
 
 		//基本排名
-		$str = "我的{$typename}排行榜：粉丝数第{$ranList['followerrank']}；经验值第{$ranList['experiencerank']}；财富值第{$ranList['scorerank']}；";
+		$str = "我的{$typename}排行榜：粉丝数第{$ranList['followerrank']}；经验值第{$ranList['experiencerank']}；积分值第{$ranList['scorerank']}；";
 
 		//任务排名
 		if( CheckTaskSwitch() ){
