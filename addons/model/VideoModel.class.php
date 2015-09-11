@@ -328,10 +328,17 @@ class VideoModel extends Model {
 	{
 		$showBasicUrl = 'https://openapi.youku.com/v2/videos/show_basic.json';
 		$config       = model('Xdata')->get('outside:video');
+
+		/* # link */
+		/* http://player.youku.com/player.php/sid/XMTMzMDA2NTExMg==/v.swf */
+
+		$sid = preg_replace('/http(s?)\:\/\/player\.youku\.com\/player\.php\/sid\/(.*?)\/v.swf(.*?)/is', '\\2', $link);
 		
 		$conf         = array();
 		$conf['video_url'] = urlencode($link);
 		$conf['client_id'] = $config['youku_client_id'];
+		/* # 兼容player地址 */
+		$conf['video_id']  = $sid;
 
 		$_temp  = array();
 		foreach ($conf as $key => $value) {

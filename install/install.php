@@ -2,6 +2,8 @@
 /**
  * ThinkSNS安装文件，修改自pbdigg。
  */
+
+
 error_reporting(0);
 set_time_limit(600);
 
