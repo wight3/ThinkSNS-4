@@ -94,13 +94,13 @@ class Addons
         $urlDir = SITE_URL.'/addons/plugin';
         $path = $dirName.'/'.$addonsName;
         $addonUrl = $urlDir.'/'.$addonsName;
-       
+
         $adminHooks = array();
         if(isset(self::$addonsObj[$addonsName])) {
             $obj = self::$addonsObj[$addonsName];
         } else {
             $filename = $path.'/'.$addonsName.'Addons.class.php';
-            tsload($filename); 
+            tsload($filename);
             $className = $addonsName.'Addons';
             if ( !class_exists($className) ){
             	die('不存在该类');
@@ -176,7 +176,7 @@ class Addons
 
     /**
      * [adminUrl description]
-     * @param string $page 
+     * @param string $page
      * @param array $param
      * @return [type] [description]
      */

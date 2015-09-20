@@ -606,3 +606,18 @@ scrollbar-base-color:#A8A8A8;
         -moz-animation: breathe 1500ms ease-in-out infinite alternate;
         -o-animation: breathe 1500ms ease-in-out infinite alternate;
 }
+
+/* # 联系人搜索按钮 */
+.medz-message-s {
+    width: 190px;
+    height: 24px;
+    margin-left: 35px;
+    background-color: #fff;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    border-style: solid;
+    border-color: #C7C4C4;
+    border-width: 1px;
+    padding: 0 5px;
+}

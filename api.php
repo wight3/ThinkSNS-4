@@ -6,7 +6,6 @@ ini_set('display_errors',true);
 error_reporting(E_ALL); 
 set_time_limit(0);
 // */
-
 //网站根路径设置
 define('SITE_PATH', dirname(__FILE__));
 

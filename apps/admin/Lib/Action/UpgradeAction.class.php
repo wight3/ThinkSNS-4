@@ -50,6 +50,9 @@ class UpgradeAction extends AdministratorAction
 	 **/
 	public function check()
 	{
+		if (version_compare(PHP_VERSION, '5.3.12', '<')) {
+			$this->showError('您当前PHP: ' . PHP_VERSION . '版本低于ThinkSNS4运行的最低版本PHP:5.3.12');
+		}
 
 		$url  = C('UPURL') . '?v=' . C('VERSION');
 		$data = file_get_contents($url);

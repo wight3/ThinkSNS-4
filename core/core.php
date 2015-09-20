@@ -15,7 +15,7 @@ if(!ini_get('date.timezone') and function_exists('date_default_timezone_set'))
 	date_default_timezone_set('Asia/Shanghai');
 }
 
-$time_include_start = microtime(TRUE);
+$time_include_start = microtime(true);
 $mem_include_start = memory_get_usage();
 
 //设置全局变量ts
@@ -28,6 +28,7 @@ $ts['_router']	=	array();	//路由配置
 tsdefine('IS_CGI',substr(PHP_SAPI, 0, 3)=='cgi' ? 1 : 0 );
 tsdefine('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 tsdefine('IS_HTTPS',0);
+
 
 // # 设置API版本常量
 if (isset($_REQUEST['api_version'])) {
@@ -51,7 +52,7 @@ if(!defined('_PHP_FILE_')) {
 }
 
 // 网站URL根目录
-if(!defined('__ROOT__')) {	
+if(!defined('__ROOT__')) {
 	$_root = dirname(_PHP_FILE_);
 	define('__ROOT__',  (($_root=='/' || $_root=='\\')?'':rtrim($_root,'/')));
 }
@@ -113,23 +114,23 @@ tsdefine ( 'TOKEN', 'ts_wx' );
  * @return boolean
  */
 function tsload($filename) {
-	
+
 	static $_importFiles = array();	//已载入的文件列表缓存
-	
+
 	$key = strtolower($filename);
-	
+
 	if (!isset($_importFiles[$key])) {
-		
+
 		if (is_file($filename)) {
-			
+
 			require_once $filename;
 			$_importFiles[$key] = true;
 		} elseif(file_exists(CORE_LIB_PATH.'/'.$filename.'.class.php')) {
-			
+
 			require_once CORE_LIB_PATH.'/'.$filename.'.class.php';
 			$_importFiles[$key] = true;
 		} else {
-			
+
 			$_importFiles[$key] = false;
 		}
 	}
@@ -142,10 +143,10 @@ function tsload($filename) {
  * @return void
  */
 function tsautoload($classname) {
-	
+
 	// 检查是否存在别名定义
 	if(tsload($classname)) return ;
-	
+
 	// 自动加载当前项目的Actioon类和Model类
 	if(substr($classname,-5)=="Model") {
 		if(!tsload(ADDON_PATH.'/model/'.$classname.'.class.php'))
@@ -297,7 +298,7 @@ function check_gpc($value=array()) {
 		//如果key值为app\mod\act,value只允许数字、字母下划线
 		if( ($key=='app' || $key=='mod' || $key=='act') && !empty($data) ){
 			if(!preg_match('/^[a-zA-Z0-9_]+$/i',$data)){
-				die('wrong_parameter: not safe app/mod/act value.');				
+				die('wrong_parameter: not safe app/mod/act value.');
 			}
 		}
 	}

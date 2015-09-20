@@ -5,7 +5,7 @@ if($room['type'] == 2){
     $navs = '';
 }
 </php>
-<div id="set-data" data-title="{$title}" data-navs='{$navs}' data-footer='<div class="msg-inputs"><div class="face_box"></div><form id="msg-form" method="post" enctype="multipart/form-data" action="" target="send_msg_frame"><input type="text" id="message_input" placeholder="输入完成按回车键发送" /><a href="javascript:;" id="face_input" class="btns"><i></i>表情</a><a href="javascript:;" id="img_input" class="btns"><i></i>图片</a><input type="file" id="file_input" name="file" class="btns" /></form></div>' data-btn='<a href="{:U('public/WebMessage/friends')}" class="boxopenurl">发消息</a>' data-scrolly="bottom" data-scrollytime="0"></div>
+<div id="set-data" data-title="{$title}" data-navs='{$navs}' data-footer='<div class="msg-inputs"><div class="face_box"></div><form id="msg-form" method="post" enctype="multipart/form-data" action="" target="send_msg_frame"><input type="text" id="message_input" placeholder="输入完成按回车键发送" /><a href="javascript:;" id="face_input" class="btns"><i></i>表情</a><a href="javascript:;" id="img_input" class="btns"><i></i>图片</a><input type="file" id="file_input" name="file" class="btns" /></form></div>' data-btn='<a href="{:U('public/WebMessage/friends')}" class="boxopenurl">联系人</a>' data-scrolly="bottom" data-scrollytime="0"></div>
 <iframe name="send_msg_frame" id="send_msg_frame" style="display:none"></iframe>
 <div class="common">
     <ul class="msg-list"><php>if($isMore):</php><li class="more"><a href="javascript:;" id="view_more">查看更多消息</a></li><php>endif;</php>{$list}</ul>

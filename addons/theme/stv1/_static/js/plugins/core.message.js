@@ -497,6 +497,10 @@ core.message = new function(){
             var setTaskRoom = function(pos){
                 var limit = (($(window).height()-40)/50)-4;
                 $.get(U('public/WebMessage/latelyRoomList'), {limit:limit}, function(res){
+                    /* # 评论和赞 */
+                    res.info.comment && taskbar.setMessageNumber('pl', res.info.comment);
+                    res.info.digg    && taskbar.setMessageNumber('zan', res.info.digg);
+
                     if(!res.data) return;
                     var i;
                     for(i in res.data){

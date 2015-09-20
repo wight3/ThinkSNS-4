@@ -7,6 +7,7 @@ if($addGroupMember){
     $navs='<a href="'.U('public/WebMessage/friends').'" class="boxopenurl current">我的好友('.$count.')</a><a href="'.U('public/WebMessage/roomList').'" class="boxopenurl">消息列表</a>';
 }
 </php>
+<?php $navs .= '<input class="medz-message-s" placeholder="输入联系人昵称">'; ?>
 <div id="set-data" data-title="{$addGroupMember?'添加群成员':'我的好友'}" data-navs='{$navs}' data-btn='{$btn}'></div>
 <div class="common">
     <php>if($data):</php>
@@ -25,13 +26,13 @@ if($addGroupMember){
       <php>$i=0;foreach($users as $key => $val):</php>
       <php>if($i%2==0):</php>
       <dd class="clearfix">
-        <div class="lt">
+        <div class="lt" id="medz-f">
             <div class="face"><a title="发私信" href="{:U('public/WebMessage/room', array('uid'=>$val['uid']))}" class="boxopenurl"><img src="{$val['avatar_small']}" /></a></div>
             <div class="uname"><a title="发私信" href="{:U('public/WebMessage/room', array('uid'=>$val['uid']))}" class="boxopenurl">{$val['uname']}</a></div>
             <div id="checkbox_user_{$val['uid']}" class="checkbox" data-uid="{$val['uid']}"></div>
         </div>
       <php>else:</php>
-        <div class="rt">
+        <div class="rt" id="medz-f">
             <div class="face"><a title="发私信" href="{:U('public/WebMessage/room', array('uid'=>$val['uid']))}" class="boxopenurl"><img src="{$val['avatar_small']}" /></a></div>
             <div class="uname"><a title="发私信" href="{:U('public/WebMessage/room', array('uid'=>$val['uid']))}" class="boxopenurl">{$val['uname']}</a></div>
             <div id="checkbox_user_{$val['uid']}" class="checkbox" data-uid="{$val['uid']}"></div>
@@ -47,6 +48,20 @@ if($addGroupMember){
 </div>
 <script>
 (function(){
+    /* # 联系人搜索 */
+    var box = $(document).find('.msgbox-body');
+    $(document).find('.medz-message-s').on('keyup', function() {
+        var $this = $(this);
+        var text  = $this.val();
+        if (!text) {
+            box.find('#medz-f').show();
+            return false;
+        };
+        box.find('#medz-f').hide();
+        box.find('#medz-f:contains(\'' + text + '\')').show();
+        return true;
+    });
+
     $('.boxopenurl').click(function(){
         if(typeof core.message.openUrl == 'function'){
             core.message.openUrl($(this).attr('href'), false);

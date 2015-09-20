@@ -237,7 +237,17 @@ class WebMessageAction extends Action {
                 $data[$key]['min_max'] = $rs['min_max'];
             }
         }
-        $this->ajaxReturn($data);
+
+        /* # 评论， 赞， 通知，AT */
+        $info = array();
+
+        /* # 评论 */
+        $info['comment'] = model('UserData')->where('`uid`=' . $this->mid . " AND `key`='unread_comment'")->getField('value');
+
+        /* # 赞 */
+        $info['digg'] = model('UserData')->where('`uid`=' . $this->mid . " AND `key`='unread_digg'")->getField('value');
+
+        $this->ajaxReturn($data, $info);
     }
     
     public function friends(){

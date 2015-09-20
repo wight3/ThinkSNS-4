@@ -116,7 +116,7 @@ class AdministratorAction extends Action {
 
     protected $navList = array();
 
-    protected $submitAlias = '保存';
+    protected $submitAlias = '提交';
 
     public function _initialize()
     {
