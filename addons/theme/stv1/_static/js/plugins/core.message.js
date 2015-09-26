@@ -498,8 +498,10 @@ core.message = new function(){
                 var limit = (($(window).height()-40)/50)-4;
                 $.get(U('public/WebMessage/latelyRoomList'), {limit:limit}, function(res){
                     /* # 评论和赞 */
-                    res.info.comment && taskbar.setMessageNumber('pl', res.info.comment);
-                    res.info.digg    && taskbar.setMessageNumber('zan', res.info.digg);
+                    res.info.comment = parseInt(res.info.comment);
+                    res.info.digg    = parseInt(res.info.digg);
+                    res.info.comment >= 1 && taskbar.setMessageNumber('pl', res.info.comment);
+                    res.info.digg    >= 1 && taskbar.setMessageNumber('zan', res.info.digg);
 
                     if(!res.data) return;
                     var i;
