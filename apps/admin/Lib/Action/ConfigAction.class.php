@@ -40,6 +40,7 @@ class ConfigAction extends AdministratorAction {
 		$this->pageTitle ['setSeo'] = 'SEO配置';
 		$this->pageTitle ['editSeo'] = '编辑SEO';
 		$this->pageTitle ['setUcenter'] = 'Ucenter配置';
+        $this->pageTitle ['charge'] = '充值配置';
 		parent::_initialize ();
 	}
 	
@@ -2306,4 +2307,13 @@ define('UC_SYNC', {$ucopen});
 		$this->displayConfig();
 	}
 
+    //充值配置
+    public function charge(){
+        $this->pageKeyList = array('charge_ratio', 'charge_platform', 'alipay_pid', 'alipay_key', 'alipay_email');
+        $this->opt['charge_platform'] = array(
+			'alipay' => '支付宝',
+			'weixin' => '微信支付'
+		);
+        $this->displayConfig();
+    }
 }

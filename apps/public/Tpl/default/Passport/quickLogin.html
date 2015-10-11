@@ -43,7 +43,7 @@
           <span class="qk-ui-loginPwd"></span><label class="qk-l-login qk-login_password" style="color:#888;">输入密码</label>
           <input type="password" name="login_password" class="qk-text" style=" position:absolute; z-index:100;" onfocus="$('.qk-login_password').hide()" onblur="if(this.value=='') $('.qk-login_password').show()" value=""/>
         </div>
-        <div class="qk-mb20"><a class="qk-act-but qk-submit" href="javascript:;" onclick="quicksubmit()" >登录</a></div>
+        <div class="qk-mb20"><a class="qk-act-but qk-submit" id="login-submit" href="#">登录</a></div>
         <div class="clearfix qk-mb20">  没有账号，<a class="qk-blue" href="{:U('public/Register/index')}">点击注册</a> <a href="{:U('public/Passport/findPassword')}" class="qk-login-fgetpwd blue">忘记密码？</a></div>
         <div id="js_login_input" style="display:none" class="qk-error-box"></div>
         <div class="qk-login-ft">
@@ -66,6 +66,15 @@ $('#qk-login-box input:text,#qk-login-box input:password').keypress(function(e){
 		quicksubmit();
 	}
 });
+  
+/* # 提交绑定事件 */
+$(function () {
+  $('#login-submit').on('click', function (event) {
+    event.preventDefault();
+    quicksubmit();
+  });
+});
+
 function quicksubmit(){
   var url = '{$url}';
 	var email = $.trim($("input[name='login_email']").val());
@@ -76,8 +85,7 @@ function quicksubmit(){
 	if ( !password ){
 		ui.error('密码不能为空！');return false;
 	}
-	$.post(U('public/Passport/doLogin'),{login_email:email,login_password:password},function (res){
-		eval('var data='+res);
+	$.post(U('public/Passport/doLogin'),{login_email:email,login_password:password},function (data){
 		if ( data.status == 1 ){
       if(url){
           $('#js_login_input').html('<p>'+data.info+'</p>').show();
@@ -89,7 +97,7 @@ function quicksubmit(){
 	    ui.error(data.info);
 	    return false;
     }
-	});
+	}, 'json');
     return false;
 }
 

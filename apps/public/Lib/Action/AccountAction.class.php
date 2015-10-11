@@ -1027,51 +1027,15 @@ class AccountAction extends Action {
     }
 
     public function scorecharge() {
-        $charge_record = D('credit_charge')->where('uid=' . $this->mid)->order('charge_id desc')->findPage(100);
+        // 删除7天前还没支付的记录
+        D('credit_charge')->where('status=0 AND ctime<'.(time()-(86400*7)));
+        $data = model('Xdata')->get('admin_Config:charge');
+        $charge_record = D('credit_charge')->where('status>0 and uid=' . $this->mid)->order('charge_id desc')->findPage(100);
+        $this->assign('chargeConfigs', $data);
         $this->assign('charge_record', $charge_record);
         $this->display();
     }
-
-    public function do_scorecharge() {
-        $modelDevelopRechargeRecord = D('DevelopRechargeRecord', 'develop');
-        $orderNumber = 'CZ' . getOrderNumber();
-        // $price = intval($_POST['charge_value']);
-        $price = 0.01;
-        $data ['serial_number'] = $orderNumber;
-        $data ['charge_type'] = intval($_POST ['charge_type']);
-        $data ['charge_value'] = $price;
-        $data ['uid'] = $this->mid;
-        $data ['ctime'] = time();
-        $result = D('credit_charge')->add($data);
-        $res = array();
-        if ($result) {
-            $res ['status'] = 1;
-            $res ['info'] = '充值成功';
-            $params = array(
-                'order_nu' => $orderNumber,
-                'price' => $price,
-                'type' => 1,
-                'explain' => '积分充值'
-            );
-            switch ($data ['charge_type']) {
-                case '1' :
-                    $res ['request_url'] = Addons::createAddonUrl('Tenpay', 'tenpay_to', $params);
-                    break;
-                case '2' :
-                    $res ['request_url'] = Addons::createAddonUrl('Alipay', 'alipay_to', $params);
-                    break;
-                default :
-                    $res ['request_url'] = '';
-                    break;
-            }
-        } else {
-            $res ['status'] = 0;
-            $res ['info'] = '充值失败';
-        }
-
-        exit(json_encode($res));
-    }
-
+    
     public function scoretransfer() {
         if ($_POST) {
             $_POST ['fromUid'] = $this->mid;
@@ -1087,6 +1051,115 @@ class AccountAction extends Action {
         $credit_record = D('credit_record')->where($map)->order('ctime DESC')->findPage(100);
         $this->assign('credit_record', $credit_record);
         $this->display();
+    }
+
+    public function do_scorecharge() {
+        $price = intval($_POST['charge_value']);
+        if($price < 1){
+            exit(json_encode(array('status'=>0, 'info'=>'充值金额不正确')));
+        }
+        $type = intval($_POST['charge_type']);
+        $types = array('alipay', 'weixin');
+        if(!isset($types[$type])){
+            exit(json_encode(array('status'=>0, 'info'=>'充值方式不支持')));
+        }
+        $chargeConfigs = model('Xdata')->get('admin_Config:charge');
+        if(!in_array($types[$type], $chargeConfigs['charge_platform'])){
+            exit(json_encode(array('status'=>0, 'info'=>'充值方式不支持')));
+        }
+
+        $data ['serial_number'] = 'CZ'.date('YmdHis').rand(0,9).rand(0,9);
+        $data ['charge_type'] = $type;
+        $data ['charge_value'] = $price;
+        $data ['uid'] = $this->mid;
+        $data ['ctime'] = time();
+        $data ['status'] = 0;
+        $data ['charge_sroce'] = intval($price*abs(intval($chargeConfigs['charge_ratio'])));
+        $data ['charge_order'] = '';
+        $result = D('credit_charge')->add($data);
+        $res = array();
+        if ($result) {
+            $data['charge_id'] = $result;
+            $res ['status'] = 1;
+            $res ['info'] = 'OK';
+            switch($type){
+                case 0: $res['request_url'] = $this->alipay($data); break;
+                case 1: $res['request_url'] = $this->weixin($data); break;
+                default : $res['request_url'] = '';
+            }
+            
+        } else {
+            $res ['status'] = 0;
+            $res ['info'] = '充值创建失败';
+        }
+
+        exit(json_encode($res));
+    }
+    
+    protected function alipay(array $data){
+        $chargeConfigs = model('Xdata')->get('admin_Config:charge');
+        require_once ADDON_PATH.'/library/alipay/alipay.php';
+        $configs = $parameter = array();
+        $configs['partner'] = $chargeConfigs['alipay_pid'];
+        $configs['seller_email'] = $chargeConfigs['alipay_email'];
+        $configs['key'] = $chargeConfigs['alipay_key'];
+        $parameter = array(
+            "notify_url"	=> SITE_URL.'/public/pay/alipay_notify.php',
+            "return_url"	=> SITE_URL.'/public/pay/alipay_return.php',
+            "out_trade_no"	=> $data['serial_number'],
+            "subject"	=> '积分充值:'.$data['charge_sroce'].'积分',
+            "total_fee"	=> $data['charge_value'],
+            //"total_fee"	=> 0.01,
+            "body"	=> '',
+            "show_url"  => '',
+            "app" => 'public',
+            "mod" => 'Account',
+            "act" => 'scorecharge'
+        );
+        return createAlipayUrl($configs, $parameter);
+    }
+
+    public function alipayReturn(){
+        require_once ADDON_PATH.'/library/alipay/alipay.php';
+        $chargeConfigs = model('Xdata')->get('admin_Config:charge');
+        $configs = array(
+            'partner'=>$chargeConfigs['alipay_pid'],
+            'seller_email'=>$chargeConfigs['alipay_email'],
+            'key'=>$chargeConfigs['alipay_key']
+        );
+        unset($_GET['app'], $_GET['mod'], $_GET['act']);
+        if(verifyAlipayReturn($configs)){
+            if(model('Credit')->charge_success($_GET['out_trade_no'])){
+                $this->assign('jumpUrl', U('public/Account/scoredetail'));
+                $this->success('积分充值成功');
+            }else{
+                $this->redirect('public/Account/scoredetail');
+            }
+        }else{
+            $map = array(
+                'uid'=>$this->mid,
+                'serial_number'=>t($_GET['out_trade_no']),
+                'status' => 0, // 这个条件不能删，删了就有充值漏洞
+            );
+            D('credit_charge')->where($map)->setField('status', 2);
+            $this->assign('jumpUrl', U('public/Account/scoredetail'));
+            $this->error('积分充值失败');
+        }
+    }
+    public function alipayNotify(){
+        header('Content-type:text/html;charset=utf-8');
+        require_once ADDON_PATH.'/library/alipay/alipay.php';
+        $chargeConfigs = model('Xdata')->get('admin_Config:charge');
+        $configs = array(
+            'partner'=>$chargeConfigs['alipay_pid'],
+            'seller_email'=>$chargeConfigs['alipay_email'],
+            'key'=>$chargeConfigs['alipay_key']
+        );
+        unset($_GET['app'], $_GET['mod'], $_GET['act']);
+        if(verifyAlipayNotify($configs)){
+            model('Credit')->charge_success($_POST['out_trade_no']);
+        }
+        exit;
     }
 
 }

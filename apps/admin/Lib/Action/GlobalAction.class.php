@@ -172,6 +172,7 @@ class GlobalAction extends AdministratorAction {
         $this->assign($list);
         $this->display();
     }
+
     public function addCredit() {
         $creditType = M('credit_type')->order('id ASC')->findAll();//积分类别
         $this->assign('creditType',$creditType);

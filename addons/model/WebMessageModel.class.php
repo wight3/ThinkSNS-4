@@ -701,6 +701,7 @@ class WebMessageModel
         return false;
     }
 
+    //TODO JPush Code
     public function pushMessage($toUids, $data){
         $clients = $this->getClientByUser($toUids);
         if($clients){

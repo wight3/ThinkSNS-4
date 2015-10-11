@@ -49,6 +49,7 @@ $menu = array(
 				// '访问配置' => U('admin/Config/access'),
 				L('PUBLIC_FILTER_SETTING')	=>	U('admin/Config/sensitive'),
 				L('PUBLIC_POINT_SETTING')	=>	U('admin/Global/credit'),
+                '充值配置'			=>  U('admin/Config/charge'),
 				'地区配置'			=>  U('admin/Config/area'),
 				// L('PUBLIC_LANGUAGE')	=>	U('admin/Config/lang'),
 				 // L('PUBLIC_MAILTITLE_ADMIN')	=>	U('admin/Config/notify'),

@@ -247,6 +247,9 @@ class WebMessageAction extends Action {
         /* # 赞 */
         $info['digg'] = model('UserData')->where('`uid`=' . $this->mid . " AND `key`='unread_digg'")->getField('value');
 
+        /* # 通知 */
+        $info['notice'] = D('notify_message')->where('`uid` = ' . $this->mid . ' AND `is_read` != 1')->field('`id`')->count();
+
         $this->ajaxReturn($data, $info);
     }
     

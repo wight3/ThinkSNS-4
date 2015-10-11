@@ -375,17 +375,29 @@ class CreditModel extends Model {
 	 */
 	public function charge_success($serial_number){
 		$map['serial_number'] = $serial_number;
-		$map['uid'] = $GLOBALS['ts']['mid'];
+        if($GLOBALS['ts']['mid']){
+            $map['uid'] = $GLOBALS['ts']['mid'];
+        }
 		$detail = D('credit_charge')->where($map)->find();
-		if($detail){
-			if($detail['status']==0){
-				$res = D('credit_charge')->where($map)->setField('status',1);
-				if($res !== false){
-					$des['content'] = "充值了".$detail['charge_value']."积分";
-					model('Credit')->setUserCredit($GLOBALS['ts']['mid'],array('name'=>'credit_charge','score'=>$detail['charge_value']),1,$des);
-				}
-			}
+		if($detail && $detail['status']!=1){
+            $res = D('credit_charge')->where($map)->setField('status',1);
+            if($res !== false){
+                $score = $this->getUserCredit(intval($detail['uid']));
+                $score = intval($score['credit']['score']['value']);
+                $add['type'] = 2;
+                $add['uid'] = intval($detail['uid']);
+                $add['action'] = '积分充值';
+                $add['des'] = '';
+                $add['change'] = intval($detail['charge_sroce']);
+                $add['ctime'] = time();
+                $add['detail'] = '{"score":"' . $add["change"] . '"}';
+                M('credit_user')->where("uid={$add['uid']}")->save(array('score'=>$score+$add['change']));
+                D('credit_record')->add($add);
+		        $this->cleanCache($add['uid']);
+                return true;
+            }
 		}
+        return false;
 	}
 
 	/**
@@ -408,16 +420,16 @@ class CreditModel extends Model {
 		$add['type'] = 3;
 		$add['uid'] = intval($data['toUid']);
 		$add['action'] = '积分转入';
-		$add['des'] = addslashes(t($data['desc']));
+		$add['des'] = t($data['desc']);
 		$add['change'] = intval($data['num']);
 		$add['ctime'] = time();
-        $add['detail'] = '{"score":"{$add["change"]}"}';
+        $add['detail'] = '{"score":"' . $add["change"] . '"}';
 
 		$add2 = $add;
 		$add2['uid'] = intval($data['fromUid']);
 		$add2['change'] = -1 * intval($data['num']);
 		$add2['action'] = '积分转出';
-        $add2['detail'] = '{"score":"{$add2["change"]}"}';
+        $add2['detail'] = '{"score":"' . $add2["change"] . '"}';
         M('credit_user')->where("uid={$add2['uid']}")->save(array('score'=>$score2-$add['change']));
         M('credit_user')->where("uid={$add['uid']}")->save(array('score'=>$score+$add['change']));
 		//转账对象积分变动记录

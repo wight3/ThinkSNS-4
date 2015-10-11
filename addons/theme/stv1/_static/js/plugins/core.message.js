@@ -497,11 +497,13 @@ core.message = new function(){
             var setTaskRoom = function(pos){
                 var limit = (($(window).height()-40)/50)-4;
                 $.get(U('public/WebMessage/latelyRoomList'), {limit:limit}, function(res){
-                    /* # 评论和赞 */
+                    /* # 评论和赞以及通知 */
                     res.info.comment = parseInt(res.info.comment);
                     res.info.digg    = parseInt(res.info.digg);
-                    res.info.comment >= 1 && taskbar.setMessageNumber('pl', res.info.comment);
+                    res.info.notice  = parseInt(res.info.notice);
+                    res.info.comment >= 1 && taskbar.setMessageNumber('pl' , res.info.comment);
                     res.info.digg    >= 1 && taskbar.setMessageNumber('zan', res.info.digg);
+                    res.info.notice  >= 1 && taskbar.setMessageNumber('tz' , res.info.notice);
 
                     if(!res.data) return;
                     var i;
