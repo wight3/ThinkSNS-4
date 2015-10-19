@@ -64,5 +64,10 @@
     }
   }
 </script>
+<?php if(!empty($appJsList) && is_array($appJsList)) { ?>
+<?php foreach ($appJsList as $jsUrl) { ?>
+<script type="text/javascript" src="{:APP_PUBLIC_URL}/{$jsUrl}?v={$site.sys_version}"></script>
+<?php } ?>
+<?php } ?>
 </body>
 </html>

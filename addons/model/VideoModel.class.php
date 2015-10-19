@@ -331,14 +331,17 @@ class VideoModel extends Model {
 
 		/* # link */
 		/* http://player.youku.com/player.php/sid/XMTMzMDA2NTExMg==/v.swf */
+		$sid = preg_replace('/https?\:\/\/player\.youku\.com\/player\.php\/sid\/(.*?)\/v.swf(.*)?/is', '\\1', $link);
 
-		$sid = preg_replace('/http(s?)\:\/\/player\.youku\.com\/player\.php\/sid\/(.*?)\/v.swf(.*?)/is', '\\2', $link);
+		/* # link */
+		/* http://v.youku.com/v_show/id_XMTM1NzI5NjM1Ng==.html?firsttime=270&from=y1.9-4 */
+		$sid = preg_replace('/https?\:\/\/v\.youku\.com\/v\_show\/id\_(.*?)\.html\?(.*)?/is', '\\1', $sid);
 		
-		$conf         = array();
+		$conf              = array();
 		$conf['video_url'] = urlencode($link);
 		$conf['client_id'] = $config['youku_client_id'];
 		/* # 兼容player地址 */
-		$conf['video_id']  = $sid;
+		$conf['video_id']  = urlencode($sid);
 
 		$_temp  = array();
 		foreach ($conf as $key => $value) {

@@ -32,6 +32,10 @@ core.loadFile(THEME_URL+'/js/plugins/core.weibo.js', function () {
 });
 </script>
 <php>endif;</php>
-
+<?php if(!empty($appJsList) && is_array($appJsList)) { ?>
+<?php foreach ($appJsList as $jsUrl) { ?>
+<script type="text/javascript" src="{:APP_PUBLIC_URL}/{$jsUrl}?v={$site.sys_version}"></script>
+<?php } ?>
+<?php } ?>
 </body>
 </html>

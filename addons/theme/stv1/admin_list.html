@@ -110,7 +110,16 @@
     共&nbsp;&nbsp;{$listData.totalRows}&nbsp;&nbsp;条记录&nbsp;&nbsp;{$listData.html}
     </div>  
     <volist name='pageButton' id='b'>
-      <a onclick="{$b.onclick}" class="btn_a"><span>{$b.title}</span></a>
+      <?php
+        $dataArgs = '';
+        if (is_array($b['data'])) {
+          foreach ($b['data'] as $dk => $dv) {
+            $dataArgs .= 'data-' . $dk . '="' . $dv . '"';
+          }
+        }
+      ?>
+      <a onclick="{$b.onclick}" class="btn_a {$b.class}" id="{$b.id}" {$dataArgs}><span>{$b.title}</span></a>
+      <?php unset($dataArgs); ?>
     </volist>
   </div>
   <!-- END TOOLBAR -->
