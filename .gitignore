@@ -1,0 +1,16 @@
+/.htaccess
+/.svn/
+/server/
+/config/config.inc.php
+/apps/Information/
+/apps/Gift/
+/api/thinksns/*
+!/api/thinksns/UserApi.class.php
+!/api/thinksns/WeiboStatusesApi.class.php
+/api/sociax/
+#/data/upload/*/*/*
+#!/data/upload/2015/0715/18/
+#!/data/upload/2015/0615/15/
+#!/data/upload/2015/0615/17/
+#!/data/upload/2015/0[67]15/1[578]/
+/data/

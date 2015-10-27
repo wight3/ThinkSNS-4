@@ -9499,6 +9499,16 @@ DELETE FROM `ts_system_config` WHERE `key` = 'admin_Application_jpush';
 INSERT INTO `ts_system_config` (`list`, `key`, `value`, `mtime`) VALUES
 ('pageKey', 'admin_Application_jpush', 'a:6:{s:3:"key";a:2:{s:3:"key";s:3:"key";s:6:"secret";s:6:"secret";}s:8:"key_name";a:2:{s:3:"key";s:7:"App Key";s:6:"secret";s:13:"Master Secret";}s:8:"key_type";a:2:{s:3:"key";s:4:"text";s:6:"secret";s:4:"text";}s:11:"key_default";a:2:{s:3:"key";s:0:"";s:6:"secret";s:0:"";}s:9:"key_tishi";a:2:{s:3:"key";s:0:"";s:6:"secret";s:0:"";}s:14:"key_javascript";a:2:{s:3:"key";s:0:"";s:6:"secret";s:0:"";}}', '2015-09-02 03:39:48');
 
+--
+-- 更新语言包，将保持变更为更有意义的“提交”
+--
+UPDATE `ts_lang` SET `zh-cn` = '提交' WHERE `key` LIKE 'PUBLIC_SAVE';
+
+--
+-- 更新公用评论表
+--
+ALTER TABLE `ts_comment` CHANGE `table` `table` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '被评论的内容所存储的表';
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

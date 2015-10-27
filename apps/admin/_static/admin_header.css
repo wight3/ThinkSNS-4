@@ -36,7 +36,7 @@ ul.submenu li a.on{background:#656C7E;color:#fff;}
 .main-nav .nav-sub{float:right;}
 .main-nav .nav-sub a{display:inline-block;height:30px;line-height:30px;padding:15px 10px;font-size:16px;color:#000;}
 .main-nav .nav-sub a:hover{color:#3589F1;}
-.main-nav .nav-sub img{vertical-align: middle;border-radius: 50%;margin-top: -5px;padding:15px 10px;}
+.main-nav .nav-sub img{vertical-align: middle;border-radius: 50%;margin-top: -5px;padding:15px 10px; width: 30px;height: 30px;}
 
 /*内容iframe*/
 .main{width:100%;height:100%;background:#F7F7F7;}

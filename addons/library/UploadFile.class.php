@@ -213,7 +213,7 @@ class UploadFile
                 $file['key']        = $key;
                 $file['extension']  = $this->getExt($file['name']);
                 $file['savepath']   = $savePath;
-                $file['savename']   = uniqid().'.'.$file['extension'];
+                $file['savename']   = uniqid().substr(str_shuffle('0123456789abcdef'), rand(0, 9), 7).'.'.$file['extension'];
                 //$this->getSaveName($file);
 
                 if($GLOBALS['fromMobile'] == true && empty($file['extension'])){//移动设备上传的无后缀的图片，默认为jpg

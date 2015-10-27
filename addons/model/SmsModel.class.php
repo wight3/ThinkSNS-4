@@ -500,7 +500,7 @@ class SmsModel extends Model
 	public function checkEmailCaptcha($email, $code)
 	{
 		$code = intval($code);
-		$data = $this->where('`phone` LIKE \'' . t($email) . '\' AND `code` != 0 AND `message` = \'\' AND time > ' . time() - 1800)->field('code')->order('`time` DESC')->getField('code');
+		$data = $this->where('`phone` LIKE \'' . t($email) . '\' AND `code` != 0 AND `message` = \'\' AND time > ' . (time() - 1800))->field('code')->order('`time` DESC')->getField('code');
 
 		/* # 检查邮箱地址是否为空 */
 		if (!$email) {

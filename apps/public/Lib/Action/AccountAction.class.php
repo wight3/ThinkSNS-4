@@ -1129,7 +1129,7 @@ class AccountAction extends Action {
         );
         unset($_GET['app'], $_GET['mod'], $_GET['act']);
         if(verifyAlipayReturn($configs)){
-            if(model('Credit')->charge_success($_GET['out_trade_no'])){
+            if(model('Credit')->charge_success(t($_GET['out_trade_no']))){
                 $this->assign('jumpUrl', U('public/Account/scoredetail'));
                 $this->success('积分充值成功');
             }else{
@@ -1157,7 +1157,7 @@ class AccountAction extends Action {
         );
         unset($_GET['app'], $_GET['mod'], $_GET['act']);
         if(verifyAlipayNotify($configs)){
-            model('Credit')->charge_success($_POST['out_trade_no']);
+            model('Credit')->charge_success(t($_POST['out_trade_no']));
         }
         exit;
     }
