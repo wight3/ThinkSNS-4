@@ -511,102 +511,6 @@ scrollbar-base-color:#A8A8A8;
     transform: translate(-50%, 0px)
 }
 
-/*隐藏后的呼吸灯*/
-@keyframes breathe {
-    0% {
-        opacity: .2; 
-        box-shadow:0 1px 2px rgba(255,255,255,0.1);
-    }
-    100% { 
-        opacity: 1; 
-        border:1px solid rgba(59,235,235,1); 
-        box-shadow:0 1px 30px rgba(59,255,255,1);
-    }
-}
-@-moz-keyframes breathe {
-    0% {
-        opacity: .2; 
-        box-shadow:0 1px 2px rgba(255,255,255,0.1);
-    }
-    100% { 
-        opacity: 1; 
-        border:1px solid rgba(59,235,235,1); 
-        box-shadow:0 1px 30px rgba(59,255,255,1);
-    }
-}
-@-o-keyframes breathe {
-    0% {
-        opacity: .2; 
-        box-shadow:0 1px 2px rgba(255,255,255,0.1);
-    }
-    100% { 
-        opacity: 1; 
-        border:1px solid rgba(59,235,235,1); 
-        box-shadow:0 1px 30px rgba(59,255,255,1);
-    }
-}
-@-webkit-keyframes breathe {
-    0% {
-        opacity: .2; 
-        box-shadow:0 1px 2px rgba(255,255,255,0.1);
-    }
-    100% { 
-        opacity: 1; 
-        border:1px solid rgba(59,235,235,1); 
-        box-shadow:0 1px 30px rgba(59,255,255,1);
-    }
-}
-
-.smartButton {
-    display: block;
-    position: absolute;
-    width: 20px;
-    height: 40px;
-    background-color: #303030;
-    left: -22px;
-    top: 50%;
-    margin-top: -20px;
-    padding: 10px 0 10px 0;
-    border-radius: 10px;
-    cursor:pointer;
-}
-.smartButton:focus,
-.smartButton:hover
-{
-    background-color: #303030;
-}
-
-.smartButton i {
-    display: block;
-    width: 5px;
-    height: 100%;
-    background: #303030;
-    margin: 0 auto;
-    border-radius: 5px;
-    border:1px solid #2b92d4;
-    color:#fff;
-    font-size:20px; 
-    text-align:center; 
-    box-shadow:0 1px 2px rgba(0,0,0,.3);
-    overflow:hidden;
-    opacity: .2;
-    box-shadow:0 1px 2px rgba(255,255,255,0.1);
-    background-color: #6cc3fe;
-}
-
-.message-breathe i {
-    background-image: 
-        gradient(linear, left top, left bottom, from(#6cc3fe), to(#21a1d0));
-        -webkit-gradient(linear, left top, left bottom, from(#6cc3fe), to(#21a1d0));
-        -moz-gradient(linear, left top, left bottom, from(#6cc3fe), to(#21a1d0));
-        -o-gradient(linear, left top, left bottom, from(#6cc3fe), to(#21a1d0));
-
-        animation: breathe 1500ms ease-in-out infinite alternate;
-        -webkit-animation: breathe 1500ms ease-in-out infinite alternate;
-        -moz-animation: breathe 1500ms ease-in-out infinite alternate;
-        -o-animation: breathe 1500ms ease-in-out infinite alternate;
-}
-
 /* # 联系人搜索按钮 */
 .medz-message-s {
     width: 190px;
@@ -620,4 +524,78 @@ scrollbar-base-color:#A8A8A8;
     border-color: #C7C4C4;
     border-width: 1px;
     padding: 0 5px;
+}
+
+/* # smartButton */
+.smartButton {
+    display: none;
+    position: absolute;
+    width: 30px;
+    height: 76px;
+    background-color: #303030;
+    left: 0;
+    top: 50%;
+    margin-top: -100px;
+    padding: 10px 0 10px 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    cursor:pointer;
+    text-align: center;
+    z-index: -1;
+}
+.smartButton:hover {
+    background-color: #303030;
+}
+/* # smartButton 消息数字提示 */
+.smartButton .smartButton-num {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    _display: block;
+    display: none;
+    position: absolute;
+    left: -8px;
+    top: -6px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 12px;
+    font-style: normal;
+    background-color: #ff0000;
+    color: #fff;
+}
+/* # 联系人文字样式 */
+.smartButton .smartButton-text {
+    width: 12px;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+}
+/* # smartButton图标字体 */
+@font-face {
+  font-family: "smartButton-iconfont";
+  src: url('../font/message/iconfont.eot'); /* IE9*/
+  src: url('../font/message/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../font/message/iconfont.woff') format('woff'), /* chrome、firefox */
+  url('../font/message/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../font/message/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.smartButton .smartButton-iconfont {
+  font-family:"smartButton-iconfont" !important;
+  font-size:26px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: .2px;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+}
+
+/* # 系统消息列表和用户消息列表之间的分割线 */
+#message-taskbar .wrap .sys-user {
+    height: 1px;
+    width: 34px;
+    display: block;
+    margin: 0 auto 5px;
+    background-color: #5D5D5D;
 }

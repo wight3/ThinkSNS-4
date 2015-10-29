@@ -981,6 +981,7 @@ class AdminAction extends AdministratorAction {
 		!is_array($_POST['weiba_id']) && $_POST['weiba_id'] = array($_POST['weiba_id']);
 		$map['weiba_id'] = array('in',$_POST['weiba_id']);
 		$data['status'] = intval($_POST['value']);
+		$data['is_del'] = 1;
 		$res = D('weiba')->where($map)->save($data);
 		if($res){
 			$return['status'] = 1;

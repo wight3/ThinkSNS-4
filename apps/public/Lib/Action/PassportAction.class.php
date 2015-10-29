@@ -166,24 +166,6 @@ class PassportAction extends Action
 		$this->ajaxReturn(null, $sms->getMessage(), 0);
 	}
 
-	// public function sendPasswordCode() {
-	// 	$mobile = t($_POST['mobile']);
-	// 	$res = preg_match("/^[1][3578]\d{9}$/", $mobile, $matches) !== 0;
-	// 	if (!$res) {
-	// 		$this->ajaxReturn(null, '无效的手机号', 0);
-	// 	}
-	// 	$count = model('User')->where('`phone`="'.mysql_escape_string($mobile).'"')->count();
-	// 	if ($res && $count == 0) {
-	// 		$this->ajaxReturn(null, '此手机号没有注册该站点', 0);
-	// 	}
-	// 	$res = model('Captcha')->sendPasswordCode($mobile);
-	// 	if ($res) {
-	// 		$this->ajaxReturn(null, '发送成功', 1);
-	// 	} else {
-	// 		$this->ajaxReturn(null, model('Captcha')->getLastError(), 0);
-	// 	}
-	// }
-
 	/**
 	 * 发送找回密码验证码
 	 *

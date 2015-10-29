@@ -1,10 +1,71 @@
 <?php
 /**
+ * 微吧活跃成员组建
+ *
+ * @package ThinkSNS\Widget\WeibaDaren
+ * @author Seven Du <lovevipdsw@vip.qq.com>
+ **/
+class WeibaDarenWidget extends Widget
+{
+	/**
+	 * 渲染执行方法
+	 * 输出默认html结构
+	 *
+	 * @param array $var 固定结构
+	 * @return string 执行后的HTML字符串
+	 * @author Seven Du <lovevipdsw@vip.qq.com>
+	 **/
+	public function render($data)
+	{
+		/* # 合并覆盖初始数据 */
+		$data = array_merge(array(
+			'max'     => 5,
+			'weibaid' => null,
+			'title'   => '用户推荐',
+			'uid'     => null
+		), $data);
+		return $this->renderFile(dirname(__FILE__) . '/template.html', $data);
+	}
+
+	/**
+	 * 重新加载推荐数据
+	 *
+	 * @return string 用户列表数据
+	 * @author Seven Du <lovevipdsw@vip.qq.com>
+	 **/
+	public function reload()
+	{
+		/* 用户ID */
+		$uid = intval($_POST['uid']);
+		/* 微吧ID */
+		$wid = intval($_POST['wid']);
+		/* 数量 */
+		$limit = intval($_POST['limit']);
+		$limit || $limit = 3;
+
+		$where = '`is_del` != 1';
+		$uid && $where .= ' AND `post_uid` != ' . $uid;
+		$wid && $where .= ' AND `weiba_id` = ' . $wid;
+		$uids = D('WeibaPost', 'weiba')->where($where)->field('`post_uid`, count(`post_id`) as `num`')->order('`num` DESC')->group('`post_uid`')->limit(50)->select();
+		$limit > count($uids) && $limit = count($uids);
+		$ids = array();
+		foreach (array_rand($uids, $limit) as $key) {
+			array_push($ids, $uids[$key]['post_uid']);
+		}
+		unset($uids);
+		$ids = model('User')->getUserInfoByUids($ids);
+		echo $this->renderFile(dirname(__FILE__) . '/_userList.html', array('userList' => $ids));
+		exit;
+	}
+
+} // END class WeibaDarenWidget extends Widget
+
+/**
  * 可能感兴趣的人Widget
  * @author zivss <guolee226@gmail.com>
  * @version TS3.0
  */
-class WeibaDarenWidget extends Widget {
+class OldWeibaDarenWidget extends Widget {
 	
 	/**
 	 * 渲染可能感兴趣的人页面

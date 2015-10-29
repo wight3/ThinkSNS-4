@@ -4,7 +4,7 @@
     <dd>
       <div class="name"> <a href="{$userInfo.space_url}">{$userInfo.uname}</a> 
       </div>
-      <div class="user-grade clearfix">
+      <div class="user-grade clearfix" data-url="{:U('public/Account/scoredetail')}">
         <span class="grade">等级: {:intval($userInfo['credit_info']['level']['level'])}</span><volist name='userCredit.credit' id='vo'><span class="grade">{$vo.alias}: {:intval($vo['value'])}</span></volist>
       </div>
     </dd>
@@ -17,6 +17,16 @@
   </ul>
   {:W('MedalList')} </div>
 <script type="text/javascript">
+/* # 点击等级等进入积分页面 */
+$(function() {
+	$('.user-grade').css('cursor', 'pointer')
+	                .attr('title', '点击查看我的积分')
+	                .on('click', function(event) {
+	  event.preventDefault();
+	  window.location.href = $(this).data('url');
+	});
+});
+
 // 事件监听
 M.addEventFns({
 	ico_level_right: {

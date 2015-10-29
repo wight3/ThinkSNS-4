@@ -162,7 +162,7 @@ function rankpost(type){
   <php>if( CheckTaskSwitch() ){</php>
   <div class="rank-box">
     <div class="rank-tit"> <span class="right"><i class="arrow-rank-l" id="medallast" onclick="gorank(1,'medal',this,{$medal.ranknum})"></i><font id="medalnum">{$medal.firstrank}</font>/{$medal.ranknum}<i class="arrow-rank-r<php>if($medal['ranknum']==1){</php>1<php>}</php>" id="medalnext" onclick="gorank(2,'medal',this,{$medal.ranknum})"></i></span>{$typename}勋章排行榜 </div>
-    <div class="rank-num">您在{$typename}勋章排行榜中排名第<em>{$medal.userrank}</em>名</div>
+    <div class="rank-num">您在{$typename}勋章排行榜中排名第<em class="medal-rank">{$medal.userrank}</em>名</div>
     <div class="rank-cate"><span class="right">勋章数</span><span class="num">排名</span><span class="name">昵称</span></div>
     <php>foreach ( $medal['list'] as $medalk=>$medalv ){</php>
     <div rel="medaldiv" 
@@ -174,7 +174,7 @@ function rankpost(type){
     <php>}</php>
     >
     <php>foreach ( $medalv as $mv ){</php>
-    <p class="rank-lists<php>if($mid==$mv['uid']['uid']){</php> current<php>}</php>"> <span class="right f9">{$mv.val}</span>
+    <p class="rank-lists<php>if($mid==$mv['uid']['uid']){</php> current" id="medal-rank-sel" data-rank="{$mv.rank}<php>}</php>"> <span class="right f9">{$mv.val}</span>
       <php>if($medalk==1){</php>
       <span class="num ico-num{$mv.rank}"></span>
       <php>}else{</php>
@@ -187,7 +187,7 @@ function rankpost(type){
 </div>
 <div class="rank-box">
   <div class="rank-tit"> <span class="right"><i class="arrow-rank-l" id="checkconlast" onclick="gorank(1,'checkcon',this,{$checkcon.ranknum})"></i><font id="checkconnum">{$checkcon.firstrank}</font>/{$checkcon.ranknum}<i class="arrow-rank-r<php>if($checkcon['ranknum']==1){</php>1<php>}</php>" id="checkconnext" onclick="gorank(2,'checkcon',this,{$checkcon.ranknum})"></i></span>{$typename}连续签到排行榜 </div>
-  <div class="rank-num">您在{$typename}连续签到排行榜中排名第<em>{$checkcon.userrank}</em>名</div>
+  <div class="rank-num">您在{$typename}连续签到排行榜中排名第<em class="checkcon-rank">{$checkcon.userrank}</em>名</div>
   <div class="rank-cate"><span class="right">连续签到数</span><span class="num">排名</span><span class="name">昵称</span></div>
   <php>foreach ( $checkcon['list'] as $checkconk=>$checkconv ){</php>
   <div rel="checkcondiv" 
@@ -199,7 +199,7 @@ function rankpost(type){
   <php>}</php>
   >
   <php>foreach ( $checkconv as $ccv ){</php>
-  <p class="rank-lists<php>if($mid==$ccv['uid']['uid']){</php> current<php>}</php>"> <span class="right f9">{$ccv.val}</span>
+  <p class="rank-lists<php>if($mid==$ccv['uid']['uid']){</php> current" id="checkcon-rank-sel" data-rank="{$ccv.rank}<php>}</php>"> <span class="right f9">{$ccv.val}</span>
     <php>if($checkconk==1){</php>
     <span class="num ico-num{$ccv.rank}"></span>
     <php>}else{</php>
@@ -212,7 +212,7 @@ function rankpost(type){
 </div>
 <div class="rank-box no-border">
   <div class="rank-tit"> <span class="right"><i class="arrow-rank-l" id="checktotallast" onclick="gorank(1,'checktotal',this,{$checktotal.ranknum})"></i><font id="checktotalnum">{$checktotal.firstrank}</font>/{$checktotal.ranknum}<i class="arrow-rank-r<php>if($checktotal['ranknum']==1){</php>1<php>}</php>" id="checktotalnext" onclick="gorank(2,'checktotal',this,{$checktotal.ranknum})"></i></span>{$typename}累积签到排行榜 </div>
-  <div class="rank-num">您在{$typename}累积签到排行榜中排名第<em>{$checktotal.userrank}</em>名</div>
+  <div class="rank-num">您在{$typename}累积签到排行榜中排名第<em class="checktotal-rank">{$checktotal.userrank}</em>名</div>
   <div class="rank-cate"><span class="right">累计签到数</span><span class="num">排名</span><span class="name">昵称</span></div>
   <php>foreach ( $checktotal['list'] as $checktotalk=>$checktotalv ){</php>
   <div rel="checktotaldiv" 
@@ -224,7 +224,7 @@ function rankpost(type){
   <php>}</php>
   >
   <php>foreach ( $checktotalv as $ctv ){</php>
-  <p class="rank-lists<php>if($mid==$ctv['uid']['uid']){</php> current<php>}</php>"> <span class="right f9">{$ctv.val}</span>
+  <p class="rank-lists<php>if($mid==$ctv['uid']['uid']){</php> current" id="checktotal-rank-sel" data-rank="{$ctv.rank}<php>}</php>"> <span class="right f9">{$ctv.val}</span>
     <php>if($checktotalk==1){</php>
     <span class="num ico-num{$ctv.rank}"></span>
     <php>}else{</php>
@@ -243,4 +243,11 @@ function rankpost(type){
 </div>
 </div>
 </div>
+<script type="text/javascript">
+$(function() {
+  $('.medal-rank').text($('#medal-rank-sel').data('rank'));
+  $('.checkcon-rank').text($('#checkcon-rank-sel').data('rank'));
+  $('.checktotal-rank').text($('#checktotal-rank-sel').data('rank'));
+});
+</script>
 <include file="__THEME__/public_footer" />

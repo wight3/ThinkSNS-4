@@ -1448,34 +1448,6 @@ class FeedModel extends Model {
 		}
 	}
 
-	/**
-	 * 同步到分享
-	 * @param string content 内容
-	 * @param integer uid 发布者uid
-	 * @param mixed attach_ids 附件ID  
-	 * @return integer feed_id 分享ID
-	 */
-/* 	public function syncToFeed($content,$uid,$attach_ids,$from) {	
-		//判断用户发分享的权限
-		if( !CheckPermission('core_normal','feed_post') ){
-			return false;
-		}
-		$d['content'] = '';
-		$d['body'] = $content.'&nbsp;';
-		$d['from'] = 0; //TODO
-		if($attach_ids){
-			$type = 'postimage';
-			$d['attach_id'] = $attach_ids;
-		}else if($video_ids){
-			$type = 'postvideo';
-			$d['video_id'] = $video_ids;
-		}else{
-			$type = 'post';
-		}
-		$feed = model('Feed')->put($uid, 'public', $type, $d, '', 'feed');
-		return $feed['feed_id'];
-	} */
-
 	public function syncToFeed($app, $uid, $appId) {
 		$type = '';
 		$appTable = '';
