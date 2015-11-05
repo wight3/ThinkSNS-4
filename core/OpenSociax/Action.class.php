@@ -139,7 +139,7 @@ abstract class Action
 
         $this->langJsList = $this->site['langJsList'];
         
-        $this->site['sys_version'] = time(); //TODO 开发时的调试
+        $this->site['sys_version'] = C('VERSION');
         
         $GLOBALS['ts']['site'] = $this->site;
 

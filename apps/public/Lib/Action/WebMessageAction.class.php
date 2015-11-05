@@ -218,7 +218,7 @@ class WebMessageAction extends Action {
     }
     
     public function latelyRoomList(){
-        $limit = (int)$_GET['limit'];
+        $limit = floor($_GET['limit']);
         $limit = $limit <= 0 ? 10 : $limit;
         $list = model('WebMessage')->getRoomList($limit, false);
         $data = array();
