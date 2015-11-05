@@ -58,6 +58,9 @@ core.message = new function(){
         /* # 储存消息总数 */
         messageCount: 0,
 
+        /* #  */
+        limitHeight: 47,
+
         /**
          * 在页面上构建任务栏
          * @return void
@@ -76,9 +79,9 @@ core.message = new function(){
                 /* # 添加智能按钮初始事件 */
                 taskbar.initSmartButton();
                 /* # 窗口变化事件 */
-                $(window).on('resize', function() {
-                    taskbar.initSmartButton();
-                });
+                // $(window).on('resize', function() {
+                //     taskbar.initSmartButton();
+                // });
                 /* # 开启定时事件 */
                 taskbar.setTimeoutSmartButtonMessageNumber();
             }catch(e){}
@@ -86,31 +89,49 @@ core.message = new function(){
 
         /* # 初始化SmartButton */
         initSmartButton: function() {
+            /* # 针对非chrome浏览器的兼容处理 */
+            if (navigator.userAgent.toLowerCase().match(/edge/) == null && window.chrome) {
+                taskbar.jq('.wrap').addClass('chrome');
+                taskbar.limitHeight = 40;
+            };
             /* # 前置判断，判断分辨率问题 */
             taskbar.messageStatus = $(document).width() < 1140;
             if (!taskbar.messageStatus) {
-                taskbar.jq().animate({
-                    right: '0',
-                    top: 0
-                }, 1500);
-                taskbar.jq('.smartButton').show().animate({
-                    left: 0,
+                // taskbar.jq().animate({
+                //     right: '0',
+                //     top: 0
+                // }, 1500);
+                // taskbar.jq('.smartButton').show().animate({
+                //     left: 0,
+                //     opacity: 0
+                // }, 450);
+                // taskbar.jq('.wrap').animate({
+                //         marginLeft: 0
+                // }, 100);
+                taskbar.jq().css({
+                    right: 0,
+                    top:0
+                });
+                taskbar.jq('.smartButton').show().css({
+                    left:0,
                     opacity: 0
-                }, 450);
-                taskbar.jq('.wrap').animate({
-                        marginLeft: 0
-                }, 100);
+                });
+                taskbar.jq('.wrap').css('margin-left', 0);
                 /* # 中断，不执行初始化 */
                 return false;
             };
 
             /* # 初始化 */
+            taskbar.jq().css({
+                top: '59px',
+                right: '-45px'
+            });
             taskbar.messageStatus && taskbar.jq('.smartButton').show().animate({
                 left: '-30px',
                 opacity: 1
             }, 900, function() {
                 taskbar.jq().animate({
-                    right: '-45px',
+                    right: '-32px',
                     top: '59px'
                 }, 450);
                 taskbar.jq('.wrap').animate({
@@ -129,6 +150,27 @@ core.message = new function(){
             taskbar.initSmartBar = true;
         },
 
+        /* # title新增闪动效果 */
+        $head: $('head').find('title'),
+        isShowTitle: false,
+        showTitleText: $('head').find('title').text(),
+        showTitle: function(status) {
+            taskbar.isShowTitle = status ? true : false;
+            taskbar.showTitleToOne = true;
+            if (taskbar.isShowTitle) {
+                if (taskbar.showTitlwSetp == 1) {
+                    taskbar.showTitlwSetp = 2;
+                    taskbar.$head.text('【新消息】' + taskbar.showTitleText);
+                } else {
+                    taskbar.showTitlwSetp = 1;
+                    taskbar.$head.text('【　　　】' + taskbar.showTitleText);
+                };
+                return false;
+            };
+            taskbar.$head.text(taskbar.showTitleText);
+            taskbar.isShowTitle = false;
+        },
+
         /* # 定时执行消息提示方法 */
         setTimeoutSmartButtonMessageNumber: function() {
             taskbar.messageCount = 0;
@@ -138,13 +180,15 @@ core.message = new function(){
             if (taskbar.messageCount > 0) {
                 taskbar.jq('.smartButton-num').text(taskbar.messageCount > 9 ? '···' : taskbar.messageCount).fadeIn('show');
                 taskbar.jq('.smartButton-text').text('新消息');
+                taskbar.showTitle(true);
             } else {
                 taskbar.jq('.smartButton-text').text('联系人');
                 taskbar.jq('.smartButton-num').text(0).fadeOut('show');
+                taskbar.showTitle(false);
             };
             setTimeout(function() {
                 taskbar.setTimeoutSmartButtonMessageNumber();
-            }, 3000);
+            }, 500);
         },
 
         /* # smartButton和taskBar状态切换 */
@@ -171,7 +215,7 @@ core.message = new function(){
                 opacity: 1
             }, 900);
             taskbar.jq().animate({
-                right: '-45px'
+                right: '-32px'
             }, 450);
             taskbar.jq('.wrap').animate({
                 marginLeft: '5px'
@@ -571,7 +615,7 @@ core.message = new function(){
             });
             
             var setTaskRoom = function(pos){
-                var limit = (($(window).height()-40)/50)-4;
+                var limit = $(window).height() / taskbar.limitHeight - 4;
                 $.get(U('public/WebMessage/latelyRoomList'), {limit:limit}, function(res){
                     /* # 评论和赞以及通知 */
                     res.info.comment = parseInt(res.info.comment);
