@@ -1,5 +1,5 @@
 /*任务栏出场动画*/
-@keyframes taskbarcome{
+/*@keyframes taskbarcome{
     from{right:-50px; opacity:0 }
     to{right:0; opacity:1 }
 }
@@ -10,7 +10,22 @@
 @-moz-keyframes taskbarcome{
     from{right:-50px; opacity:0 }
     to{right:0; opacity:1 }
+}*/
+
+/* # 为了不改变 */
+@keyframes taskbarcome{
+    from{right:-50px; opacity:1 }
+    to{right:-50px; opacity:1 }
 }
+@-webkit-keyframes taskbarcome{
+    from{right:-50px; opacity:1 }
+    to{right:-50px; opacity:1 }
+}
+@-moz-keyframes taskbarcome{
+    from{right:-50px; opacity:1 }
+    to{right:-50px; opacity:1 }
+}
+
 
 /*li按钮出场动画*/
 @keyframes licome{
@@ -47,52 +62,20 @@
 }
 
 
-#message-taskbar{ position:fixed; top:0; right:0; z-index:999; width:36px; height:100%; min-height:100%; max-height:100%;background-color:#333;background-color: rgb(51, 51, 51);background-color:rgba(51,51,51,1);}
-@media screen and (min-width: 1140px) {
-    #message-taskbar {
-        animation:taskbarcome 0.6s ease;-webkit-animation:taskbarcome 0.6s ease;-moz-animation:taskbarcome 0.6s ease;
-    }
-} 
-
+#message-taskbar{ position:fixed; top:59px; right:-50px; z-index:999; width:50px; height:100%; min-height:100%; max-height:100%;background-color:#333;background-color:rgba(0,0,0,0.8);animation:taskbarcome 0.6s ease;-webkit-animation:taskbarcome 0.6s ease;-moz-animation:taskbarcome 0.6s ease;}
 #message-taskbar .hide{display:none !important;}
-/*#message-taskbar .wrap{padding:20px 0;}*/
-#message-taskbar .wrap{padding:0; padding-top: 10px;}
+#message-taskbar .wrap{padding:20px 0;}
 
 #message-taskbar .message-list{}
-/*#message-taskbar .message-list li{width:50px; height:50px; overflow:hidden; position:relative;animation:licome 0.6s ease;-webkit-animation:licome 0.6s ease;-moz-animation:licome 0.6s ease;}*/
-#message-taskbar .message-list li{width:32px; height:32px; overflow:hidden; position:relative;animation:licome 0.6s ease;-webkit-animation:licome 0.6s ease;-moz-animation:licome 0.6s ease; padding: 5px 0}
-#message-taskbar .wrap.chrome .message-list li {
-    padding: 0;
-}
-#message-taskbar .wrap.chrome .sys-user {
-    margin: 0 auto 5px;
-}
-
+#message-taskbar .message-list li{width:50px; height:50px; overflow:hidden; position:relative;animation:licome 0.6s ease;-webkit-animation:licome 0.6s ease;-moz-animation:licome 0.6s ease;}
 #message-taskbar .message-list li.noanimat{animation:none;-webkit-animation:none;-moz-animation:none;}
 #message-taskbar .message-list li.move{z-index:1;left:auto; top:auto; right:auto; bottom:auto;}
 #message-taskbar .message-list li.move a{ cursor:default; background-color:transparent !important;}
 #message-taskbar .message-list li.scale{animation:liscale 0.6s ease;-webkit-animation:liscale 0.6s ease;-moz-animation:liscale 0.6s ease;transform:scale(0,0);-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);height:0;}
-/*#message-taskbar .message-list li a{ width:32px; height:32px; display:block; overflow:hidden; padding:9px; position:relative}*/
-#message-taskbar .message-list li a{ width:32px; height:32px; display:block; overflow:hidden; padding:4px 5px 0; position:relative}
+#message-taskbar .message-list li a{ width:32px; height:32px; display:block; overflow:hidden; padding:9px; position:relative}
 #message-taskbar .message-list li a:hover{ background:#000;}
-#message-taskbar .message-list li a i {
-    color: #fff;
-    font-style: normal;
-    position: absolute;
-    top: 0;
-    right: 11px;
-    background: #c00;
-    display: block;
-    width: 12px;
-    height: 12px;
-    line-height: 12px;
-    font-size: 8px;
-    text-align: center;
-    border-radius: 50%;
-    overflow: hidden;
-}
-/*#message-taskbar .message-list li img{ width:32px; height:32px; border:none; border-radius:50%;}*/
-#message-taskbar .message-list li img{ width:26px; height:26px; border:none; border-radius:50%;}
+#message-taskbar .message-list li a i{color:#fff; font-style:normal; position:absolute; top:6px; right:6px; background:#c00; display:block; width:16px; height:16px; line-height:16px; font-size:12px; text-align:center; border-radius:50%; overflow:hidden}
+#message-taskbar .message-list li img{ width:32px; height:32px; border:none; border-radius:50%;}
 
 
 
@@ -135,10 +118,10 @@
 
 
 
-#msgbox-main{ width:550px; height:70%; /*min-height:364px;*/ position:fixed; top:12%; left:50%; margin-left:-275px; background:#fff; z-index:998;transform:scale(1,1);-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-ms-transform:scale(1,1);opacity:1;animation:boxcome 0.3s ease;-webkit-animation:boxcome 0.3s ease;-moz-animation:liscale 0.3s ease; border-left:1px solid #ddd;border-right:1px solid #ddd;}
-#msgbox-remove{ width:550px; height:80%; position:fixed; top:60%; left:50%; margin-left:-361px; background:#fff; z-index:998;transform:scale(0,0);-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);animation:boxcout 0.5s ease;-webkit-animation:boxcout 0.5s ease;-moz-animation:boxcout 0.5s ease; border:1px solid #ddd;border-top:none;display:none\0;*display:none;}
+#msgbox-main{ width:720px; height:70%; /*min-height:364px;*/ position:fixed; top:12%; left:50%; margin-left:-361px; background:#fff; z-index:998;transform:scale(1,1);-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-ms-transform:scale(1,1);opacity:1;animation:boxcome 0.3s ease;-webkit-animation:boxcome 0.3s ease;-moz-animation:liscale 0.3s ease; border-left:1px solid #ddd;border-right:1px solid #ddd;}
+#msgbox-remove{ width:720px; height:80%; position:fixed; top:60%; left:50%; margin-left:-361px; background:#fff; z-index:998;transform:scale(0,0);-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);animation:boxcout 0.5s ease;-webkit-animation:boxcout 0.5s ease;-moz-animation:boxcout 0.5s ease; border:1px solid #ddd;border-top:none;display:none\0;*display:none;}
 
-.msgbox-title-wrap{width:550px;height:39px;background:#fff;margin:-39px 0 0 -1px;border:1px solid #ddd; border-bottom:none;}
+.msgbox-title-wrap{width:720px;height:39px;background:#fff;margin:-39px 0 0 -1px;border:1px solid #ddd; border-bottom:none;}
 .msgbox-title{height:38px;overflow:hidden;border-bottom:1px solid #eee;margin:0 10px;line-height:38px; position:relative;}
 .msgbox-title h3{text-indent:8px;font-size:14px;color:#555;}
 .msgbox-title h3 span{color:#bbb; font-size:12px; padding-left:12px;}
@@ -154,7 +137,7 @@
 .msgbox-title .rt .btn a{ display:block; background:#0096e6; font-size:12px;color:#fff; height:100%; width:auto; padding:0 13px; border-radius:3px;}
 .msgbox-title .rt .btn a.disabled{color:#99cccc;cursor:default}
 
-.msgbox-footer-wrap{width:550px; padding:10px 0; background:#fff;border:1px solid #ddd;border-top-color:#eee;margin:-1px 0 0 -1px;}
+.msgbox-footer-wrap{width:720px; padding:10px 0; background:#fff;border:1px solid #ddd;border-top-color:#eee;margin:-1px 0 0 -1px;}
 
 .msgbox-body{height:100%; overflow-x:hidden; overflow-y:auto; background:#fff; border:none; padding:none;scrollbar-arrow-color: #999;
 scrollbar-face-color: #A8A8A8;
@@ -199,7 +182,7 @@ scrollbar-base-color:#A8A8A8;
 .msgbox-body .comment li .link img{ width:68px; height:68px; margin:-4px }
 .msgbox-body .comment li .link a i{ display:block; width:22px; height:22px; background:url(../image/message/video.png) no-repeat; position:absolute; left:5px; bottom:5px;}
 .msgbox-body .comment li .reply{ padding-top:10px; float:none; clear:both; position:relative; display:none; height:32px; overflow:visible}
-.msgbox-body .comment li .reply input.text{ position:absolute; top:10px; left:0; width:480px; padding:7px 31px 7px 5px; margin:0; border:1px solid #ececec; height:16px; font-size:12px; font-family:inherit; color:#666; overflow:hidden}
+.msgbox-body .comment li .reply input.text{ position:absolute; top:10px; left:0; width:374px; padding:7px 31px 7px 5px; margin:0; border:1px solid #ececec; height:16px; font-size:12px; font-family:inherit; color:#666; overflow:hidden}
 .msgbox-body .comment li .reply input.sbmt{ position:absolute; top:10px; right:0; padding:0; margin:0; border:none; height:32px; width:68px;font-size:12px;font-family:inherit; cursor:pointer; background:#0096e6; color:#fff;}
 .msgbox-body .comment li .reply a.face-icon{ display:block; position:absolute; width:16px; height:16px; background:url(../image/icon.png) -31px -28px no-repeat; top:18px;right:76px;}
 .msgbox-body .comment li .reply a.face-icon:hover{background-position:0 -28px;}
@@ -207,7 +190,7 @@ scrollbar-base-color:#A8A8A8;
 .msgbox-body .comment li .face_parent_div .talkPop{top:32px !important; left:81px !important;}
 .msgbox-body .comment li .face_parent_div .talkPop .arrow{left:auto !important; right:75px !important;}
 
-.msgbox-body .fright{position:absolute; top:40px;right:-25px; width:44px; height:auto; overflow:visible}
+.msgbox-body .fright{position:absolute; top:40px;right:-108px; width:44px; height:auto; overflow:visible}
 .msgbox-body .checked_user{ position:absolute; left:0; top:0;}
 .msgbox-body .checked_user li{ width:20px; height:20px; border-radius:50%; margin-bottom:10px;}
 .msgbox-body .checked_user li img{ width:100%; width:100%; border-radius:50%;}
@@ -257,41 +240,27 @@ scrollbar-base-color:#A8A8A8;
 .msgbox-body .msg-list li.msg .content .arrow{ position:absolute;top:17px; width:5px; height:11px; font-size:0; background:url(../image/message/icons.png) no-repeat 0 0}
 .msgbox-body .msg-list li.msg .content img{max-width:100%;}
 .msgbox-body .msg-list li.msg .left .content{ background:#fafafa;}
-.msgbox-body .msg-list li.msg .right .content{ 
-    background: #0096E5;
-    border-color: #0096E5;
-    color: #fff;
-}
+.msgbox-body .msg-list li.msg .right .content{ background:#ffffff;}
 .msgbox-body .msg-list li.msg .left .arrow{left:-5px; background-position:0 0;}
-/*.msgbox-body .msg-list li.msg .right .arrow{right:-5px; background-position:0 -26px; background-color:#fff}*/
-.msgbox-body .msg-list li.msg .right .arrow{
-    right: -7px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-left: 10px solid #0096e5;
-    border-bottom: 8px solid transparent;
-}
+.msgbox-body .msg-list li.msg .right .arrow{right:-5px; background-position:0 -26px; background-color:#fff}
 
 .msgbox-body .msg-list li.msg .content .image,.msgbox-body .msg-list li.msg .content .position{ margin:-8px;}
 .msgbox-body .msg-list li.msg .content .image a,.msgbox-body .msg-list li.msg .content .position a{ display:block; width:auto; height:auto; position:relative;}
 .msgbox-body .msg-list li.msg .content .image img,.msgbox-body .msg-list li.msg .content .position img{}
 .msgbox-body .msg-list li.msg .content .position a span{ display:block; position:absolute; height:30px; width:100%; left:0; bottom:0; line-height:30px; overflow:hidden;background-color:rgba(0,0,0,0.6); color:#fff; text-align:center;}
 .msgbox-body .msg-list li.msg .voice{height:42px; line-height:42px; margin:-10px;}
-.msgbox-body .msg-list li.msg .voice a{ display:block; background:url(../image/message/icons.png) no-repeat 0 0; color:#fff;}
+.msgbox-body .msg-list li.msg .voice a{ display:block; background:url(../image/message/icons.png) no-repeat 0 0; color:#999;}
 .msgbox-body .msg-list li.msg .left .voice a{ background-position:left -47px; text-align:right; padding:0 10px 0 60px;}
-.msgbox-body .msg-list li.msg .right .voice a{ background-position:right -154px; text-align:left; padding:0 60px 0 10px;}
+.msgbox-body .msg-list li.msg .right .voice a{ background-position:right -89px; text-align:left; padding:0 60px 0 10px;}
 .msgbox-body .msg-list li.msg .left .voice .play{background:url(../image/message/playl.gif) no-repeat left 10px;}
-.msgbox-body .msg-list li.msg .right .voice .play{background:url(../image/message/playr-blue.gif) no-repeat right 10px;
-    margin-right: 4px;
-    margin-left: -4px;}
+.msgbox-body .msg-list li.msg .right .voice .play{background:url(../image/message/playr.gif) no-repeat right 10px;}
 .msgbox-body .msg-list li.msg .card{ display:block;}
-.msgbox-body .msg-list li.msg .card .title{ height:22px; line-height:22px; border-bottom:1px solid #ebebeb; font-size:12px;color:#fff; font-weight:normal}
+.msgbox-body .msg-list li.msg .card .title{ height:22px; line-height:22px; border-bottom:1px solid #ebebeb; font-size:12px;color:#555; font-weight:normal}
 .msgbox-body .msg-list li.msg .card .detail{ padding-top:10px; position:relative; min-width:200px;}
 .msgbox-body .msg-list li.msg .card .card-face{ width:44px; height:44px; border-radius:50%; overflow:hidden; position:absolute; top:10px; left:0;}
 .msgbox-body .msg-list li.msg .card .card-face img{ width:100%; height:100%; border-radius:50%;}
-.msgbox-body .msg-list li.msg .card .card-text{ padding-left:54px; line-height:22px; height:44px; overflow:hidden; color:#fff;}
-.msgbox-body .msg-list li.msg .card .card-text a{color:#fff}
+.msgbox-body .msg-list li.msg .card .card-text{ padding-left:54px; line-height:22px; height:44px; overflow:hidden; color:#555;}
+.msgbox-body .msg-list li.msg .card .card-text a{color:#555}
 .msgbox-body .msg-list li.info{ text-align:center;color:#bbb; padding:10px 60px 0 60px;}
 .msgbox-body .msg-list li.info a{color:#999;}
 .msgbox-body .msg-list li.more{ text-align:center;color:#ccc; padding:0 60px 0 60px;}
@@ -546,7 +515,7 @@ scrollbar-base-color:#A8A8A8;
 .medz-message-s {
     width: 190px;
     height: 24px;
-    margin-left: 0;
+    margin-left: 35px;
     background-color: #fff;
     outline: none;
     resize: none;
@@ -625,27 +594,8 @@ scrollbar-base-color:#A8A8A8;
 /* # 系统消息列表和用户消息列表之间的分割线 */
 #message-taskbar .wrap .sys-user {
     height: 1px;
-    width: 26px;
+    width: 34px;
     display: block;
-    margin: 5px auto;
+    margin: 0 auto 5px;
     background-color: #5D5D5D;
-}
-
-/* # 系统弹出框圆角处理 */
-#msgbox-main,
-#msgbox-main .msgbox-body {
-    border-bottom-style: solid;
-    border-bottom-color: #fff;
-    border-bottom-width: 8px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-#msgbox-main .msgbox-title-wrap {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-#msgbox-main .msgbox-footer-wrap {
-    margin-top: -8px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
 }

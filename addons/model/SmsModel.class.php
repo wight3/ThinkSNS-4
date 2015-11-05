@@ -253,7 +253,7 @@ class SmsModel extends Model
 	protected function auto($data)
 	{
 		$data = strtolower($data);
-		return false !== strstr($data, $this->resultCode);
+		return strstr($data, $this->resultCode);
 	}
 
 	/**
