@@ -23,6 +23,11 @@ core.message = new function(){
                     title : "通知",
                     src : THEME_URL+'/image/message/tz.png'
                 },
+                "at": {
+                    id: 'at',
+                    title: 'At我的',
+                    src: THEME_URL + '/image/message/at.png'
+                },
                 "lxr": {
                     id : 'lxr',
                     title : "联系人",
@@ -615,15 +620,17 @@ core.message = new function(){
             });
             
             var setTaskRoom = function(pos){
-                var limit = $(window).height() / taskbar.limitHeight - 4;
+                var limit = $(window).height() / taskbar.limitHeight - 5;
                 $.get(U('public/WebMessage/latelyRoomList'), {limit:limit}, function(res){
                     /* # 评论和赞以及通知 */
                     res.info.comment = parseInt(res.info.comment);
                     res.info.digg    = parseInt(res.info.digg);
                     res.info.notice  = parseInt(res.info.notice);
+                    res.info.at      = parseInt(res.info.at);
                     res.info.comment >= 1 && taskbar.setMessageNumber('pl' , res.info.comment);
                     res.info.digg    >= 1 && taskbar.setMessageNumber('zan', res.info.digg);
                     res.info.notice  >= 1 && taskbar.setMessageNumber('tz' , res.info.notice);
+                    res.info.at      >= 1 && taskbar.setMessageNumber('at' , res.info.at);
 
                     if(!res.data) return;
                     var i;

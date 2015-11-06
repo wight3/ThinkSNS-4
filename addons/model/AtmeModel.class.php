@@ -62,7 +62,7 @@ class AtmeModel extends Model {
      * @param integer $limit 结果集显示个数，默认为20
      * @return array @Me列表信息
      */
-    public function getAtmeList($map = null, $order = 'atme_id DESC', $limit = 5) {
+    public function getAtmeList(array $map = null, $order = 'atme_id DESC', $limit = 5) {
         !$map['app'] && $this->_app && ($map['app'] = $this->_app);
         !$map['table'] && $this->_app_table && ($map['table'] = $this->_app_table);
         $data = $this->where($map)->order($order)->findPage($limit);

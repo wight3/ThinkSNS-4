@@ -209,6 +209,25 @@ class WebMessageAction extends Action {
         $this->friends();
         //$this->roomList();
     }
+
+    /**
+     * At me消息
+     *
+     * @return void
+     * @author Seven Du <lovevipdsw@vip.qq.com>
+     **/
+    public function at()
+    {
+        $this->assign('list', model('Atme')->getAtmeList(array('uid' => $this->mid)));
+        $this->display('at');
+    }
+
+    public function at2()
+    {
+        echo '<pre>';
+        print_r(model('Atme')->getAtmeList(array('uid' => $this->mid)));exit;
+        $this->display('at');
+    }
     
     public function roomList(){
         $list = model('WebMessage')->getRoomList();
@@ -249,6 +268,9 @@ class WebMessageAction extends Action {
 
         /* # 通知 */
         $info['notice'] = D('notify_message')->where('`uid` = ' . $this->mid . ' AND `is_read` != 1')->field('`id`')->count();
+
+        /* # At me */
+        $info['at'] = model('UserData')->where('`uid`=' . $this->mid . " AND `key`='unread_atme'")->getField('value');
 
         $this->ajaxReturn($data, $info);
     }
