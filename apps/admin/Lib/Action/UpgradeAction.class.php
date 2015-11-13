@@ -301,7 +301,7 @@ PS：手动升级覆盖文件后千万不要刷新本页面，直接点击上方
 			return rmdir($path);
 
 		// # 判断是否是目录，如果是目录，则递归删除
-		} elseif (is_dir($path)) {
+		} elseif (is_dir($path) && file_exists($path)) {
 			// # 打开目录资源
 			$handle = opendir($path);
 

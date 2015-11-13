@@ -5,7 +5,7 @@
         <legend class="inter-txt"><php>echo $sexName?$sexName.'的':' ';</php>成就</legend>
       </fieldset>
       <php>$profile = $user_info[$uid]; $profile['medals'] = array_slice($profile['medals'], 0, 3);</php>
-      <div class="userinfo clearfix mb20">
+      <div class="userinfo clearfix mb20" id="jump-score" data-url="{:U('public/Account/scoredetail')}">
         <php>foreach($profile['credit_info']['credit'] as $k=>$vo) { </php>
         <span class="left">{$vo.alias}:{$vo.value}</span>
         <php> } </php>
@@ -48,5 +48,11 @@ $(function(){
 	$('#feed_min_id').val(0) ;
 	$('#feed_max_id').val(0);
 	get_feed_img(1);
+});
+$(function() {
+  $('#jump-score').css('cursor', 'pointer').on('click', function (event) {
+    event.preventDefault();
+    window.location.href = $(this).data('url');
+  });
 });
 </script>
