@@ -90,7 +90,7 @@ $menu = array(
     			L('PUBLIC_REPORT_MANAGEMENT')	=>	U('admin/Content/denounce'),
 				L('PUBLIC_TAG_MANAGEMENT')		=>  U('admin/Home/tag'),
 				L('PUBLIC_INVITE_CALCULATION')	=>	U('admin/Home/invatecount'),
-				'模板管理'	=>	U('admin/Content/template'),
+				// '模板管理'	=>	U('admin/Content/template'),
 	    	),
     	),
     	'task'	=> array(

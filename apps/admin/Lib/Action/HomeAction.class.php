@@ -651,7 +651,7 @@ class HomeAction extends AdministratorAction {
 		$this->opt['user_group_id'] = array_merge(array(0=>L('PUBLIC_ALL_USERS')),$groupHash);
 		$this->savePostUrl = U('admin/Home/dosendmsg');
 		$this->notEmpty = array('content');
-		$this->onsubmit = 'admin.checkMessage(this)';
+		// $this->onsubmit = 'admin.checkMessage(this)';
 		$this->displayConfig();
 	}
 

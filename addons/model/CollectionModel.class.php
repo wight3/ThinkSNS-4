@@ -196,6 +196,34 @@ class CollectionModel extends Model {
 		}
 	}
 
+	public function delByFeed($sid, $stable)
+	{
+		if (!$sid) {
+			$this->error = '资源ID不能为空';
+			return false;
+		} elseif (!$stable) {
+			$this->error = '资源表不能为空';
+			return false;
+		}
+		$where = array(
+			'source_id' => array('IN', $sid),
+			'source_table_name' => t($stable)
+		);
+		$uids = $this->where($where)->field('uid')->getAsFieldArray('uid');
+		if ($this->where($where)->delete()) {
+			foreach ($uids as $uid) {
+				model('Cache')->set('collect_'.$uid.'_'.$stable.'_'.$sid, '');
+				model('Cache')->rm('coll_count_'.$stable.'_'.$sid);
+				$stable === 'feed' && model('Cache')->rm('feed_info_'.$sid);
+				// 收藏数减1
+				model('UserData')->updateKey('favorite_count', -1, true, $uid);
+			}
+			return true;
+		}
+		$this->error = '删除错误';
+		return false;
+	}
+
 	/*** API使用 ***/
 	/**
 	 * 获取收藏列表，API使用

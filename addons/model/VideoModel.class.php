@@ -335,7 +335,7 @@ class VideoModel extends Model {
 
 		/* # link */
 		/* http://v.youku.com/v_show/id_XMTM1NzI5NjM1Ng==.html?firsttime=270&from=y1.9-4 */
-		$sid = preg_replace('/https?\:\/\/v\.youku\.com\/v\_show\/id\_(.*?)\.html\?(.*)?/is', '\\1', $sid);
+		$sid = preg_replace('/https?\:\/\/v\.youku\.com\/v\_show\/id\_(.*?)\.html\??(.*)?/is', '\\1', $sid);
 		
 		$conf              = array();
 		$conf['video_url'] = urlencode($link);

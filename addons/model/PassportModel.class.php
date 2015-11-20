@@ -146,7 +146,7 @@ class PassportModel {
 			return false;
 		}
 
-		$where = '`is_del` = 0 AND (`uid` = ' . intval($login) . ' OR `%s` = \'' . $login . '\')';
+		$where = '`is_del` = 0 AND (`%s` = \'' . $login . '\' OR `uid` = ' . intval($login) . ')';
 
 		// # 判断是否是email
 		if (MedzValidator::isEmail($login)) {

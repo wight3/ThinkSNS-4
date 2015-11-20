@@ -1002,7 +1002,8 @@ class FeedModel extends Model {
 				// 取消分享收藏
 				foreach ($feedArr as $sid) {
 					$feed = $this->where('feed_id='.$sid)->find();
-					model('Collection')->delCollection($sid, 'feed', $feed['uid']);
+					model('Collection')->delByFeed($sid, 'feed');
+					// model('Collection')->delCollection($sid, 'feed', $feed['uid']);
 				}
 				// 彻底删除分享
 				$res = $this->where($map)->delete();
@@ -1032,6 +1033,7 @@ class FeedModel extends Model {
 					$channelMap['feed_id'] = array('IN', $ids);
 					D('channel')->where($channelMap)->delete();
 				}
+				model('Collection')->delByFeed($ids, 'feed');
 				$this->cleanCache($ids); 		// 删除分享缓存信息
 				// 资源分享缓存相关分享
 				foreach ($feedList as $item) {
