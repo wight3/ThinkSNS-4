@@ -1468,6 +1468,7 @@ function parseForApi($html){
  */
 function format($content,$url=false){
 	$content = stripslashes($content);
+	$content = formatEmoji(false, $content);
 	return $content;
 }
 
@@ -2858,4 +2859,34 @@ if(!function_exists('array_column')){
         }
         return $array;
     }
+}
+
+/**
+ * 格式化Emoji
+ *
+ * @param boolean $type true为将emoji格式化为代码，false为将代码格式化为emoji
+ * @param string|array 数据，如果数数组，就递归，解析多维内部数据
+ * @return string
+ * @author Seven Du <lovevipdsw@vip.qq.com>
+ **/
+function formatEmoji($type = false, $data)
+{
+	if (is_array($data)) {
+		foreach ($data as $key => $value) {
+			$data[$key] = formatEmoji($type, $data);
+		}
+		return $data;
+	} elseif ($type) {
+		return preg_replace_callback('/[\xf0-\xf7].{3}/', function($data) {
+			$data = array_pop($data);
+			$data = base64_encode($data);
+			$data = '[emoji:' . $data . ']';
+			return $data;
+		}, $data);
+	}
+	return preg_replace_callback('/\[emoji\:(.*?)\]/is', function($data) {
+			$data = $data[1];
+			$data = base64_decode($data);
+			return $data;
+		}, $data);
 }

@@ -981,8 +981,16 @@ class AdminAction extends AdministratorAction {
 		!is_array($_POST['weiba_id']) && $_POST['weiba_id'] = array($_POST['weiba_id']);
 		$map['weiba_id'] = array('in',$_POST['weiba_id']);
 		$data['status'] = intval($_POST['value']);
-		$data['is_del'] = 1;
-		$res = D('weiba')->where($map)->save($data);
+
+		/* 如果小于1，是-1 则直接删除数据 */
+		if (intval($_POST['value']) < 1) {
+			$res = D('weiba')->where($map)->delete();
+
+		/* # 否则通过 */
+		} else {
+			$res = D('weiba')->where($map)->save($data);
+		}
+
 		if($res){
 			$return['status'] = 1;
 			$return['data']   = L('PUBLIC_ADMIN_OPRETING_SUCCESS');

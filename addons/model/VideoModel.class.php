@@ -1,5 +1,16 @@
 <?php
-class VideoModel extends Model {
+/**
+ * 视频服务模型
+ *
+ * @package ThinkSNS\Addnons\Model\Video
+ * @author Seven Du <lovevipdsw@vip.qq.com> 
+ **/
+class VideoModel extends OldVideoModel
+{
+} // END class VideoModel extends OldVideoModel
+
+// 原有的文件
+class OldVideoModel extends Model {
 
 	public function upload($from=0,$timeline=0){
 		// $imageinfo = pathinfo($_FILES['pic']['name']);

@@ -602,8 +602,11 @@ class WebMessageModel
                 $data['attach_ids'] = '';
             }
         }elseif($type == 'text'){ // 普通消息
-            $content = @trim($message['content'])?:null;
-            if(empty($content)){
+            $content = $message['content'];
+            if ($message['content'] != '0') {
+                $content = @trim($message['content']) ? @trim($message['content']) : null;
+            }
+            if(empty($content) && $message['content'] != '0'){
                 return false;
             }
             $data['content'] = $this->htmlEncode($content);

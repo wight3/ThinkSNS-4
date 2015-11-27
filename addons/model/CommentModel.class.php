@@ -102,6 +102,7 @@ class CommentModel extends Model {
         	}
         	$v['user_info']['groupData'] = $groupData;   //获取用户组信息
         	$v['content'] = parse_html($v['content'].$v['replyInfo']);
+            $v['content'] = formatEmoji(false, $v['content']); // 解析emoji
         	$v['sourceInfo'] = model('Source')->getCommentSource($v);
             //$v['data'] = unserialize($v['data']);
         	$order = strtolower($order);
@@ -135,6 +136,8 @@ class CommentModel extends Model {
     	$info = $this->where($map)->find();
     	$info['user_info'] = model('User')->getUserInfo($info['uid']);
         $info['content'] = $info['content'];
+        /* 解析出emoji */
+        $info['content'] = formatEmoji(false, $info['content']);
     	$source && $info['sourceInfo'] = model('Source')->getCommentSource($info);
 
     	static_cache('comment_info_'.$id,$info);
@@ -161,6 +164,9 @@ class CommentModel extends Model {
     		$this->error = '发布内容过于频繁，请稍后再试！';
     		return false;
     	}
+
+        /* # 将Emoji编码 */
+        $data['content'] = formatEmoji(true, $data['content']);
 
         // 检测数据安全性
         $add = $this->_escapeData($data);
@@ -487,6 +493,8 @@ class CommentModel extends Model {
             $v['content'] = parseForApi($v['content']);
             $v['ctime'] = date('Y-m-d H:i', $v['ctime']);
             $source && $v['sourceInfo'] = model('Source')->getCommentSource($v, true);  
+            /* 解析出emoji */
+            $v['content'] = formatEmoji(false, $v['content']);
         }
 
         is_null($data) && $data = array();

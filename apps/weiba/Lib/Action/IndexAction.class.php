@@ -160,6 +160,10 @@ class IndexAction extends Action {
 			// $index_img_url = getImageUrlByAttachId($list['data'][$k]['index_img'], 700, 310);
 			// $index_img_info = getThumbImage($index_img_url,700,310,true,false);
 			$list['data'][$k]['index_img'] = getImageUrlByAttachId($list['data'][$k]['index_img'], 700, 260);
+
+			/* 解析emoji */
+			$list['data'][$k]['title'] = formatEmoji(false, $list['data'][$k]['title']);
+			$list['data'][$k]['content'] = formatEmoji(false, $list['data'][$k]['content']);
 		}
 		return $list;
 	}
@@ -376,6 +380,9 @@ class IndexAction extends Action {
 			$userinfo = model('User')->getUserInfo($v['post_uid']);
 			//dump($userinfo);avatar_small,avatar_tiny
 			$list['data'][$k]['image'] = $userinfo['avatar_middle'];
+			/* 解析emoji */
+			$list['data'][$k]['title'] = formatEmoji(false, $v['title']);
+			$list['data'][$k]['content'] = formatEmoji(false, $v['content']);
 		}
 		
 		$this->assign('list',$list);
@@ -643,6 +650,10 @@ class IndexAction extends Action {
 		$data['last_reply_uid'] = $this->mid;
 		$data['last_reply_time'] = $data['post_time'];
 
+		/* # 格式化emoji */
+		$data['title'] = formatEmoji(true, $data['title']);
+		$data['content'] = formatEmoji(true, $data['content']);
+
 
 		$filterTitleStatus = filter_words($data['title']);
 		if (!$filterTitleStatus['status']) {
@@ -714,6 +725,9 @@ class IndexAction extends Action {
 
 		/* # 解析表情 */
 		$post_detail['content'] = preg_replace_callback('/\[.+?\]/is', '_parse_expression', $post_detail['content']);
+		/* # 解析emoji’ */
+		$post_detail['content'] = formatEmoji(false, $post_detail['content']);
+		$post_detail['title'] = formatEmoji(false, $post_detail['title']);
 
 		$post_detail['content'] = html_entity_decode($post_detail['content'], ENT_QUOTES, 'UTF-8');
 		$this->assign('post_detail',$post_detail);
@@ -913,6 +927,9 @@ class IndexAction extends Action {
 		$post_id = intval($_POST['post_id']);
 		$data['title'] = t($_POST['title']);
 		$data['content'] = h($_POST['content']);
+		/* # 格式化emoji */
+		$data['title'] = formatEmoji(true, $data['title']);
+		$data['content'] = formatEmoji(true, $data['content']);
 		$data['attach'] = '';
 		if ( $_POST['attach_ids'] ){
 			$attach = explode('|', $_POST['attach_ids']);
@@ -1019,6 +1036,9 @@ class IndexAction extends Action {
 
 			// 删除相应的分享信息
 			model('Feed')->doEditFeed($post_detail['feed_id'], 'delFeed', '', $this->mid);
+
+			/* 删除收藏 */
+			D('WeibaPost')->where(array('post_id' => $post_id))->delete();
 			
 			echo 1;
 		}
@@ -1208,6 +1228,9 @@ class IndexAction extends Action {
 					$post_list['data'][$k]['replyuser'] = model( 'User' )->getUserInfo( $v['last_reply_uid'] );
 					$images = matchImages($v['content']);
 					$images[0] && $post_list['data'][$k]['image'] = array_slice( $images , 0 , 5 );
+					/* 解析emoji */
+					$post_list['data'][$k]['title'] = formatEmoji(false, $v['title']);
+					$post_list['data'][$k]['content'] = formatEmoji(false, $v['content']);
 				}
 				$this->assign('post_list',$post_list);
 			}else{
@@ -1645,6 +1668,9 @@ class IndexAction extends Action {
 			$post_recommend[$k]['replyuser'] = model( 'User' )->getUserInfo( $v['last_reply_uid'] );
 			$images = matchImages($v['content']);
 			$images[0] && $post_recommend[$k]['image'] = array_slice( $images , 0 , 5 );
+			/* 解析emoji */
+			$post_recommend[$k]['title'] = formatEmoji(false, $v['title']);
+			$post_recommend[$k]['content'] = formatEmoji(false, $v['content']);
 		}
 		// dump($post_recommend);exit;
 		$this->assign('post_recommend',$post_recommend);
@@ -1729,6 +1755,9 @@ class IndexAction extends Action {
 		$nameArr = $this->_getWeibaName($weiba_ids);
 		foreach($postList['data'] as $k=>$v){
 			$postList['data'][$k]['weiba'] = $nameArr[$v['weiba_id']];
+			/* # 解析emoji */
+			$postList['data'][$k]['title'] = formatEmoji(false, $v['title']);
+			$postList['data'][$k]['content'] = formatEmoji(false, $v['content']);
 		}
 		//dump($postList);exit;
 		$post_uids = getSubByKey($postList['data'], 'post_uid');
@@ -1802,6 +1831,9 @@ class IndexAction extends Action {
 					$post_list[$k]['img'][] = $imgurl;
 				}
 			}
+			/* 解析emoji */
+			$post_list[$k]['title'] = formatEmoji(false, $v['title']);
+			$post_list[$k]['content'] = formatEmoji(false, $v['content']);
 		}
 		return $post_list;
 	}
