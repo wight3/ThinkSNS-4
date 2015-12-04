@@ -3905,6 +3905,7 @@ CREATE TABLE IF NOT EXISTS `ts_credit_record` (
   `des` text COMMENT '详情',
   `change` varchar(255) DEFAULT NULL COMMENT '积分变更',
   `ctime` int(11) DEFAULT NULL COMMENT '时间',
+  `detail` varchar(255) NULL COMMENT 'API所需描述',
   PRIMARY KEY (`rid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
