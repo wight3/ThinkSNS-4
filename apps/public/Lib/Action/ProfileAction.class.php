@@ -122,31 +122,6 @@ class ProfileAction extends Action {
 			}
 			$this->assign ( 'weiba', $weiba );
 		}
-		if ($_GET ['feed_type'] == 'blog') {
-			$map ['uid'] = $this->uid;
-			$post = M ( 'blog_favorite' )->where ( $map )->select ();
-			$maps ['id'] = array (
-					'in',
-					getSubByKey ( $post, 'blog_id' ) 
-			);
-			$blog = M ( 'blog' )->where ( $maps )->select ();
-			foreach ( $blog as $k => $v ) {
-				preg_match_all ( '#<img.*?src="([^"]*)"[^>]*>#i', $v ['content'], $match );
-				foreach ( $match [1] as $imgurl ) {
-					$imgurl = $imgurl;
-					if (! empty ( $imgurl )) {
-						$blog [$k] ['img'] [] = $imgurl;
-					}
-				}
-				$is_digg = M ( 'blog_digg' )->where ( 'post_id=' . $v ['id'] . ' and uid=' . $this->mid )->find ();
-				$blog [$k] ['digg'] = $is_digg ? 'digg' : 'undigg';
-				if (count ( $blog [$k] ['img'] ) == '0') {
-					$blog [$k] ['img'] [] = ''; // 默认图
-				}
-				$blog [$k] ['content'] = t ( $blog [$k] ['content'] );
-			}
-			$this->assign ( 'blog', $blog );
-		}
 		$this->display ();
 	}
 	private function _getWeibaName($weiba_ids) {

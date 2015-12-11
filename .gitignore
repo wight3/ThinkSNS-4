@@ -4,6 +4,7 @@
 /config/config.inc.php
 /apps/Information/
 /apps/Gift/
+/apps/Event/
 /api/thinksns/*
 !/api/thinksns/UserApi.class.php
 !/api/thinksns/WeiboStatusesApi.class.php

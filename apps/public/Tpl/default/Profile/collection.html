@@ -10,7 +10,6 @@
             <div class="mod-feed-tab" id="mod-feed-tab">
               <ul class="inner-feed-nav">
               <php> if($_GET['feed_type']=='weiba'){ $tags['weiba'] = 'current'; }
-                    elseif($_GET['feed_type']=='blog'){ $tags['blog'] = 'current'; }
                     else{ $tags['public'] = 'current'; }
               </php>
                 <li class="{$tags.public}"
@@ -19,9 +18,6 @@
                 <li 
                 class="{$tags.weiba}"
                 ><a  href="{:U('public/Profile/collection',array('tab'=>'collect','feed_type'=>'weiba','uid'=>$uid))}">帖子</a></li>
-                <!-- <li 
-                class="{$tags.blog}"
-                ><a  href="{:U('public/Profile/collection',array('tab'=>'collect','feed_type'=>'blog','uid'=>$uid))}">博客</a></li> -->
               </ul>
             </div>
           </div>
@@ -78,41 +74,6 @@
           </div>
           </dl>
           <php>}</php>
-        <php>} else if($_GET['feed_type']=='blog'){</php>
-		    <!--知识列表-->
-			  <div class="knowledge bg pl20 pr20">
-				  <div class="post-list">
-					    <ul>
-					    <php>if($blog){</php>
-					    <volist id="vo" name="blog">
-					      <li class="clearfix">
-					        <div class="knowledge-left"><img src="__THEME__/image/knowledge-bg.png" /></div>
-					        <div class="knowledge-right">
-					          <h class="post-tit"> 
-					          <a href="{:U('blog/Index/show',array('id'=>$vo['id'], 'mid'=>$vo['uid']))}"><span>{$vo.title|getShort=12}</span></a> 
-					          <eq name="vo['isHot']" value="1"><i class="ico-essence"></i></eq> 
-					          <!-- <i class="ico-toTop"></i> --> 
-					          </h>
-					          <p class="post-prof">{$vo['content']|getShort=280}.....</p>
-					          <div class="post-info f8">
-                                <div class="left"><span>分类：{$vo.category_title}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{$vo.uid|getUserName}&nbsp;发表于&nbsp;{$vo.cTime|friendlyDate=###,'full'}</span></div>
-					            <div class="right post-info-control"> 
-					            <span title="浏览"><i class="i-post-scan"></i>({$vo.readCount})</span> 
-					            <span title="评论"><i class="i-post-comment"></i>({$vo.commentCount})</span> 
-					            <eq name="vo['digg']" value="undigg"><span title="赞"></eq>
-					            <eq name="vo['digg']" value="digg"><span title="赞"></eq>
-					            <i class="i-post-alike"></i>({$vo.praise})</span>
-					            </div>
-					          </div>
-					        </div>
-					      </li>
-					    </volist>
-		          <php>} else {</php>
-							<li>您还没有收藏过知识 </li>
-						  <php>}</php>
-					    </ul>
-		      </div>
-        </div>
         <php>} else {</php>
         {:Addons::hook('feed_top_home')}
         <!--feed list--> 
